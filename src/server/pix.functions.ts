@@ -42,15 +42,6 @@ export const createPixSale = createServerFn({ method: "POST" })
         phone: c.phone,
         document: { number: c.cpf, type: "cpf" },
       },
-      shipping: {
-        name: c.name,
-        street: data.shipping.street || "Rua Principal",
-        number: data.shipping.number || "100",
-        neighborhood: "Centro",
-        city: "Porto Alegre",
-        state: "RS",
-        zipCode: (data.shipping.zipCode || "90010000").replace(/\D/g, ""),
-      },
       pix: { expiresInDays: 1 },
     };
 
