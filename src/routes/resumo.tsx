@@ -6,6 +6,7 @@ import { useCountdown } from "@/hooks/use-countdown";
 import { useState, useEffect, useRef } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { createPixSale, checkPixStatus } from "@/lib/pix.functions";
+import { saveLead, markLeadPaid } from "@/lib/leads.functions";
 import QRCode from "qrcode";
 import { toast } from "sonner";
 
