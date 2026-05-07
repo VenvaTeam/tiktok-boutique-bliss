@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, MapPin, CreditCard, Zap, BadgeCheck, Ticket, Smile, Copy, X, Loader2, Check } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin, CreditCard, Zap, BadgeCheck, Ticket, Smile, Copy, X, Loader2, Check, AlertTriangle, Clock } from "lucide-react";
 import microondas from "@/assets/microondas.png";
 import pixLogo from "@/assets/pix-logo.png";
 import { useCountdown } from "@/hooks/use-countdown";
@@ -41,9 +41,20 @@ function Resumo() {
     setPixCode(null);
     setQrImg(null);
     try {
-      const res = await createSale({ data: { amount: 12952 } });
+      type SaleRes = { error?: string; qrCode?: string; qrCodeBase64?: string };
+      const res: SaleRes = await Promise.race([
+        createSale({ data: { amount: 12952 } }) as Promise<SaleRes>,
+        new Promise<SaleRes>((_, rej) => setTimeout(() => rej(new Error("timeout")), 20000)),
+      ]);
       if (res.error || !res.qrCode) {
-        setError(res.error || "Não foi possível gerar o Pix");
+        const raw = (res.error || "").toLowerCase();
+        let friendly = "Não conseguimos gerar seu Pix agora. Tente novamente em instantes.";
+        if (raw.includes("expir")) friendly = "Este Pix expirou. Gere um novo para continuar.";
+        else if (raw.includes("limit") || raw.includes("rate")) friendly = "Muitas tentativas em sequência. Aguarde alguns segundos e tente de novo.";
+        else if (raw.includes("amount") || raw.includes("valor")) friendly = "Valor do pedido inválido. Atualize a página e tente novamente.";
+        else if (raw.includes("network") || raw.includes("fetch")) friendly = "Sem conexão com nosso provedor de pagamento. Verifique sua internet.";
+        setError(friendly);
+        toast.error("Falha ao gerar Pix", { description: friendly });
       } else {
         setPixCode(res.qrCode);
         if (res.qrCodeBase64) {
@@ -54,7 +65,11 @@ function Resumo() {
         }
       }
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Erro inesperado");
+      const msg = e instanceof Error && e.message === "timeout"
+        ? "O servidor demorou demais para responder. Tente novamente."
+        : "Algo deu errado ao gerar seu Pix. Tente novamente.";
+      setError(msg);
+      toast.error("Falha ao gerar Pix", { description: msg });
     } finally {
       setLoading(false);
     }
@@ -225,9 +240,20 @@ function Resumo() {
                 </div>
               )}
               {!loading && error && (
-                <div className="py-6 text-center">
-                  <p className="text-sm text-primary mb-3">{error}</p>
-                  <button onClick={handlePay} className="h-10 px-5 rounded-full bg-primary text-primary-foreground text-sm font-semibold">Tentar novamente</button>
+                <div className="py-8 px-2 flex flex-col items-center text-center">
+                  <div className="size-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+                    {error.toLowerCase().includes("expir") ? (
+                      <Clock className="size-6 text-primary" />
+                    ) : (
+                      <AlertTriangle className="size-6 text-primary" />
+                    )}
+                  </div>
+                  <h4 className="font-semibold text-[16px] mb-1">Não foi possível gerar o Pix</h4>
+                  <p className="text-sm text-muted-foreground mb-4 max-w-xs">{error}</p>
+                  <div className="flex gap-2">
+                    <button onClick={() => setPixOpen(false)} className="h-10 px-5 rounded-full border border-border text-sm font-semibold">Fechar</button>
+                    <button onClick={handlePay} className="h-10 px-5 rounded-full bg-primary text-primary-foreground text-sm font-semibold">Tentar novamente</button>
+                  </div>
                 </div>
               )}
               {!loading && !error && qrImg && (
