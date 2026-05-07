@@ -169,10 +169,10 @@ function Resumo() {
                 <div className="text-primary font-bold">R$ 128,32</div>
                 <div className="text-xs text-muted-foreground line-through">R$ 426,32 <span className="text-primary no-underline">-70%</span></div>
               </div>
-              <div className="flex items-center border border-border rounded-md">
-                <button className="w-8 h-8">−</button>
-                <span className="w-8 text-center">1</span>
-                <button className="w-8 h-8">+</button>
+              <div className="flex items-center border border-border rounded-md select-none">
+                <button onClick={() => setQty(q => Math.max(1, q - 1))} className="w-8 h-8 disabled:opacity-40" disabled={qty <= 1}>−</button>
+                <span className="w-8 text-center">{qty}</span>
+                <button onClick={() => setQty(q => Math.min(99, q + 1))} className="w-8 h-8">+</button>
               </div>
             </div>
           </div>
