@@ -333,9 +333,7 @@ function StoreProfile() {
     </div>
   );
 }
-    </div>
-  );
-}
+
 
 function CouponBar() {
   return (
