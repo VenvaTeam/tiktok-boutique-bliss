@@ -5,6 +5,8 @@ import {
   Store, MessageCircle, Zap, Ticket, X, ChevronRight, Play,
 } from "lucide-react";
 import microondas from "@/assets/microondas.png";
+import loiBrasil from "@/assets/loi-brasil.png";
+import { Camera } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
