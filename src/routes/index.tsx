@@ -8,8 +8,6 @@ import {
 import microondas from "@/assets/microondas.png";
 import desc1 from "@/assets/desc-1.png";
 import desc2 from "@/assets/desc-2.png";
-import descMondial from "@/assets/desc-mondial.png";
-import descMondial2 from "@/assets/desc-mondial-2.png";
 import { useCountdown } from "@/hooks/use-countdown";
 import gallery1 from "@/assets/gallery-1.png";
 import gallery2 from "@/assets/gallery-2.png";
@@ -500,12 +498,6 @@ function Description() {
   return (
     <div className="bg-background mt-2 px-4 py-4 pb-24 space-y-4">
       <h2 className="font-semibold text-[17px]">Sobre este produto</h2>
-      <div className="rounded-lg overflow-hidden">
-        <img src={descMondial} alt="Microondas Mondial 1200w 21 Litros" loading="lazy" className="w-full object-contain" />
-      </div>
-      <div className="rounded-lg overflow-hidden">
-        <img src={descMondial2} alt="Especificações Mondial" loading="lazy" className="w-full object-contain" />
-      </div>
       <div>
         <h3 className="font-medium text-[15px] mb-2">DESCRIÇÃO RESUMIDA</h3>
         <p className="text-[15px] leading-relaxed">
