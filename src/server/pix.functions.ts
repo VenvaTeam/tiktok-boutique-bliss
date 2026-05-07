@@ -60,12 +60,16 @@ export const createPixSale = createServerFn({ method: "POST" })
       body: JSON.stringify(body),
     });
     const json = await res.json();
-    if (!res.ok) {
+    if (!res.ok || json?.success === false) {
       console.error("Blackcat error", res.status, json);
-      return { error: json?.message || "Falha ao gerar Pix", details: json };
+      return { error: json?.message || json?.error || "Falha ao gerar Pix" };
     }
-    // Try to find pix code in common fields
-    const pix = json?.pix || json?.data?.pix || json;
-    const qrCode: string | undefined = pix?.qrcode || pix?.qrCode || pix?.copyPaste || pix?.payload || json?.qrcode || json?.qrCode;
-    return { qrCode, raw: json };
+    const pd = json?.data?.paymentData || json?.paymentData || {};
+    const qrCode: string | undefined = pd.qrCode || pd.qrcode || pd.copyPaste || pd.payload;
+    const qrCodeBase64: string | undefined = pd.qrCodeBase64;
+    if (!qrCode) {
+      console.error("No qrCode in response", json);
+      return { error: "Resposta sem código Pix" };
+    }
+    return { qrCode, qrCodeBase64, transactionId: json?.data?.transactionId };
   });

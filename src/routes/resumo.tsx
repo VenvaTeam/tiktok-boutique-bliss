@@ -46,8 +46,12 @@ function Resumo() {
         setError(res.error || "Não foi possível gerar o Pix");
       } else {
         setPixCode(res.qrCode);
-        const img = await QRCode.toDataURL(res.qrCode, { width: 280, margin: 1 });
-        setQrImg(img);
+        if (res.qrCodeBase64) {
+          setQrImg(res.qrCodeBase64);
+        } else {
+          const img = await QRCode.toDataURL(res.qrCode, { width: 280, margin: 1 });
+          setQrImg(img);
+        }
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Erro inesperado");
