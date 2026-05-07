@@ -41,7 +41,7 @@ function Resumo() {
     setPixCode(null);
     setQrImg(null);
     try {
-      const res = await createSale({ data: { amount: 12952, shipping: { street: endereco, number: numero, zipCode: cep } } });
+      const res = await createSale({ data: { amount: 12952 } });
       if (res.error || !res.qrCode) {
         setError(res.error || "Não foi possível gerar o Pix");
       } else {
