@@ -278,7 +278,17 @@ function Resumo() {
                   </div>
                 </div>
               )}
-              {!loading && !error && qrImg && (
+              {!loading && !error && paid && (
+                <div className="py-10 px-2 flex flex-col items-center text-center">
+                  <div className="size-16 rounded-full bg-[color:var(--teal-soft)] flex items-center justify-center mb-3">
+                    <CheckCircle2 className="size-9 text-[color:var(--teal)]" />
+                  </div>
+                  <h4 className="font-bold text-[18px] mb-1">Pagamento confirmado!</h4>
+                  <p className="text-sm text-muted-foreground mb-4 max-w-xs">Recebemos seu Pix. Seu pedido já está sendo processado.</p>
+                  <button onClick={() => setPixOpen(false)} className="h-10 px-6 rounded-full bg-primary text-primary-foreground text-sm font-semibold">Concluir</button>
+                </div>
+              )}
+              {!loading && !error && !paid && qrImg && (
                 <div className="flex flex-col items-center">
                   <div className="text-center mb-3">
                     <div className="text-xs text-muted-foreground">Total a pagar</div>
