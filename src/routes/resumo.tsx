@@ -58,6 +58,7 @@ function Resumo() {
         const r = await checkStatus({ data: { transactionId: txId } });
         if (r.paid) {
           setPaid(true);
+          markPaidFn({ data: { transaction_id: txId } }).catch(() => {});
           toast.success("Pagamento confirmado!", { description: "Recebemos seu Pix. Obrigado!" });
           if (pollRef.current) clearInterval(pollRef.current);
         }
