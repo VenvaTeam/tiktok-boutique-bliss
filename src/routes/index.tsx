@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   ChevronLeft, Search, Share2, ShoppingCart, MoreHorizontal,
   Bookmark, Star, Truck, Grid2x2, Wallet, Shield, Check,
@@ -131,6 +132,81 @@ function ProductInfo() {
   );
 }
 
+function OptionsRow() {
+  const [open, setOpen] = useState(false);
+  const [voltage, setVoltage] = useState<"110V" | "220V">("110V");
+  return (
+    <>
+      <button
+        onClick={() => setOpen(true)}
+        className="w-full flex items-center gap-3 px-4 py-3 border-b border-border text-left"
+      >
+        <Grid2x2 className="size-5 text-muted-foreground shrink-0" />
+        <div className="flex-1 text-[15px]">2 opções disponíveis</div>
+        <ChevronRight className="size-4 text-muted-foreground" />
+      </button>
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-end" onClick={() => setOpen(false)}>
+          <div className="absolute inset-0 bg-black/50" />
+          <div
+            className="relative w-full bg-background rounded-t-2xl p-4 pb-8 max-h-[85vh] overflow-y-auto animate-in slide-in-from-bottom"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start gap-3 pb-4 border-b border-border">
+              <img src={microondas} alt="" className="size-20 rounded-md object-cover bg-muted" />
+              <div className="flex-1">
+                <div className="text-primary font-bold text-[18px]">R$ 128,32</div>
+                <div className="text-xs text-muted-foreground">Selecionado: Preto, {voltage}</div>
+              </div>
+              <button onClick={() => setOpen(false)}><X className="size-5" /></button>
+            </div>
+
+            <div className="mt-4">
+              <div className="text-sm font-semibold mb-2">Cor</div>
+              <div className="flex gap-2 flex-wrap">
+                <button className="px-4 py-2 rounded-full border-2 border-primary text-primary text-sm font-semibold">
+                  Preto
+                </button>
+                <button
+                  disabled
+                  className="px-4 py-2 rounded-full border border-border text-muted-foreground text-sm relative line-through cursor-not-allowed"
+                >
+                  Branco
+                </button>
+              </div>
+              <div className="text-xs text-muted-foreground mt-1">Branco — esgotado</div>
+            </div>
+
+            <div className="mt-5">
+              <div className="text-sm font-semibold mb-2">Voltagem</div>
+              <div className="flex gap-2 flex-wrap">
+                {(["110V", "220V"] as const).map((v) => (
+                  <button
+                    key={v}
+                    onClick={() => setVoltage(v)}
+                    className={`px-4 py-2 rounded-full text-sm font-semibold border-2 ${
+                      voltage === v ? "border-primary text-primary" : "border-border text-foreground"
+                    }`}
+                  >
+                    {v}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={() => setOpen(false)}
+              className="mt-6 w-full h-12 rounded-full bg-primary text-primary-foreground font-semibold"
+            >
+              Confirmar
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 function Overview() {
   return (
     <div className="bg-background mt-2">
@@ -142,7 +218,7 @@ function Overview() {
         </div>
         <div className="text-sm text-[color:var(--teal)] mt-1">Desconto de R$ 30 no frete em pedidos acima de R$ 59</div>
       </Row>
-      <Row icon={<Grid2x2 className="size-5" />}>2 opções disponíveis</Row>
+      <OptionsRow />
       <Row icon={<Wallet className="size-5" />}>
         Bônus de cashback de <span className="text-[color:var(--shield)] font-semibold">2%</span>
       </Row>
