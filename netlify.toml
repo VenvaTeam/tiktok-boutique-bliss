@@ -1,23 +1,31 @@
 [build]
   command = "bun run build"
-  publish = ".output/public"
+  publish = "dist/client"
 
-[functions]
-  directory = ".output/server"
-  node_bundler = "esbuild"
-
+# SPA fallback — necessário para que rotas client-side funcionem (ex: /resumo, /leads)
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/server"
+  to = "/index.html"
   status = 200
-  force = false
 
-# Variáveis de ambiente (configure no painel da Netlify):
-#   VITE_SUPABASE_URL
-#   VITE_SUPABASE_PUBLISHABLE_KEY
-#   VITE_SUPABASE_PROJECT_ID
-#   SUPABASE_URL
-#   SUPABASE_PUBLISHABLE_KEY
-#   SUPABASE_SERVICE_ROLE_KEY
-#   LOVABLE_API_KEY (se usar Lovable AI)
-#   FYHUB_API_KEY  (ou o nome do secret do seu provedor de Pix)
+# ⚠️ ATENÇÃO: este deploy é STATIC ONLY (sem backend).
+#
+# As funcionalidades abaixo NÃO vão funcionar na Netlify com esta config:
+#   - Geração de Pix (server function)
+#   - Salvar leads no banco
+#   - Polling de status do pagamento
+#   - Página /leads (download CSV)
+#
+# Para ter backend funcionando você precisa:
+#   1. Rodar `bash scripts/export-netlify.sh` (substitui o vite.config.ts pelo
+#      preset Netlify do TanStack Start — gera .output/server e .output/public)
+#   2. Reupload do ZIP gerado em dist-export/projeto-netlify.zip
+#   3. Trocar este netlify.toml por:
+#         publish = ".output/public"
+#         [functions]
+#           directory = ".output/server"
+#           node_bundler = "esbuild"
+#   4. Configurar as variáveis de ambiente no painel da Netlify
+#      (VITE_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, FYHUB_API_KEY, etc.)
+#
+# Se quiser tudo funcionando sem essa complexidade, publique pelo Lovable.
