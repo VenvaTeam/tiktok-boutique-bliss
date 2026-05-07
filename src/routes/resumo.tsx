@@ -1,8 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, MapPin, CreditCard, Zap, BadgeCheck, Ticket, Smile } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin, CreditCard, Zap, BadgeCheck, Ticket, Smile, Copy, X, Loader2, Check } from "lucide-react";
 import microondas from "@/assets/microondas.png";
 import pixLogo from "@/assets/pix-logo.png";
 import { useCountdown } from "@/hooks/use-countdown";
+import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { createPixSale } from "@/server/pix.functions";
+import QRCode from "qrcode";
 
 type ResumoSearch = { nome: string; endereco: string; cep: string; numero: string };
 
@@ -20,6 +24,42 @@ export const Route = createFileRoute("/resumo")({
 function Resumo() {
   const { nome, endereco, cep, numero } = Route.useSearch();
   const time = useCountdown();
+  const createSale = useServerFn(createPixSale);
+  const [pixOpen, setPixOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [pixCode, setPixCode] = useState<string | null>(null);
+  const [qrImg, setQrImg] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const handlePay = async () => {
+    setPixOpen(true);
+    setLoading(true);
+    setError(null);
+    setPixCode(null);
+    setQrImg(null);
+    try {
+      const res = await createSale({ data: { amount: 12952, shipping: { street: endereco, number: numero, zipCode: cep } } });
+      if (res.error || !res.qrCode) {
+        setError(res.error || "Não foi possível gerar o Pix");
+      } else {
+        setPixCode(res.qrCode);
+        const img = await QRCode.toDataURL(res.qrCode, { width: 280, margin: 1 });
+        setQrImg(img);
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Erro inesperado");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const copy = async () => {
+    if (!pixCode) return;
+    await navigator.clipboard.writeText(pixCode);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="min-h-screen bg-muted/40 pb-32">
@@ -154,11 +194,59 @@ function Resumo() {
           <span className="font-bold text-[17px]">Total (1 item)</span>
           <span className="text-primary font-bold text-[20px]">R$ 129,52</span>
         </div>
-        <button className="w-full h-12 rounded-full bg-primary text-primary-foreground font-semibold">
+        <button onClick={handlePay} className="w-full h-12 rounded-full bg-primary text-primary-foreground font-semibold">
           Fazer pedido
           <div className="text-xs font-normal opacity-90">O cupom expira em {time}</div>
         </button>
       </div>
+
+      {pixOpen && (
+        <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/40 flex items-end sm:items-center justify-center p-4">
+          <div className="w-full max-w-md bg-background rounded-2xl shadow-2xl overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+              <div className="flex items-center gap-2">
+                <img src={pixLogo} alt="Pix" className="size-6" />
+                <h3 className="font-bold text-[16px]">Pagar com Pix</h3>
+              </div>
+              <button onClick={() => setPixOpen(false)} className="p-1"><X className="size-5" /></button>
+            </div>
+            <div className="p-5">
+              {loading && (
+                <div className="flex flex-col items-center py-10 gap-3">
+                  <Loader2 className="size-8 animate-spin text-primary" />
+                  <p className="text-sm text-muted-foreground">Gerando seu Pix...</p>
+                </div>
+              )}
+              {!loading && error && (
+                <div className="py-6 text-center">
+                  <p className="text-sm text-primary mb-3">{error}</p>
+                  <button onClick={handlePay} className="h-10 px-5 rounded-full bg-primary text-primary-foreground text-sm font-semibold">Tentar novamente</button>
+                </div>
+              )}
+              {!loading && !error && qrImg && (
+                <div className="flex flex-col items-center">
+                  <div className="text-center mb-3">
+                    <div className="text-xs text-muted-foreground">Total a pagar</div>
+                    <div className="text-primary font-bold text-[22px]">R$ 129,52</div>
+                  </div>
+                  <img src={qrImg} alt="QR Code Pix" className="w-56 h-56 rounded-lg border border-border" />
+                  <p className="text-xs text-muted-foreground mt-3 text-center">Escaneie o QR Code com o app do seu banco</p>
+                  <div className="w-full mt-4">
+                    <div className="text-xs font-medium text-foreground/80 mb-1">Pix copia e cola</div>
+                    <div className="flex items-stretch gap-2">
+                      <div className="flex-1 px-3 py-2 rounded-lg border border-border bg-muted/40 text-xs break-all max-h-20 overflow-y-auto">{pixCode}</div>
+                      <button onClick={copy} className="px-3 rounded-lg bg-primary text-primary-foreground text-sm font-semibold flex items-center gap-1">
+                        {copied ? <><Check className="size-4" />Copiado</> : <><Copy className="size-4" />Copiar</>}
+                      </button>
+                    </div>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mt-3 text-center">Após o pagamento, a confirmação é automática.</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
