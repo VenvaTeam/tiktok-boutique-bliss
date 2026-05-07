@@ -54,3 +54,20 @@ export const createPixSale = createServerFn({ method: "POST" })
     }
     return { qrCode, qrCodeBase64, transactionId: json?.data?.transactionId };
   });
+
+export const checkPixStatus = createServerFn({ method: "POST" })
+  .inputValidator((d: { transactionId: string }) => d)
+  .handler(async ({ data }) => {
+    const API_KEY = "sk_live_b3958c20de6c72daced0c31853fa8564b5da7a0dd8cb94912f3b39539d907e5a";
+    try {
+      const res = await fetch(`https://api.blackcatpay.com.br/api/sales/${data.transactionId}`, {
+        headers: { "X-API-Key": API_KEY },
+      });
+      const json = await res.json();
+      const status: string = (json?.data?.status || json?.status || "").toString().toUpperCase();
+      const paid = status === "PAID" || status === "APPROVED" || status === "COMPLETED";
+      return { status, paid };
+    } catch {
+      return { status: "UNKNOWN", paid: false };
+    }
+  });

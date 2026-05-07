@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, MapPin, CreditCard, Zap, BadgeCheck, Ticket, Smile, Copy, X, Loader2, Check, AlertTriangle, Clock } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin, CreditCard, Zap, BadgeCheck, Ticket, Smile, Copy, X, Loader2, Check, AlertTriangle, Clock, CheckCircle2 } from "lucide-react";
 import microondas from "@/assets/microondas.png";
 import pixLogo from "@/assets/pix-logo.png";
 import { useCountdown } from "@/hooks/use-countdown";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { createPixSale } from "@/lib/pix.functions";
+import { createPixSale, checkPixStatus } from "@/lib/pix.functions";
 import QRCode from "qrcode";
 import { toast } from "sonner";
 
@@ -27,21 +27,42 @@ function Resumo() {
   const { nome, endereco, cep, numero } = Route.useSearch();
   const time = useCountdown();
   const createSale = useServerFn(createPixSale);
+  const checkStatus = useServerFn(checkPixStatus);
   const [pixOpen, setPixOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [pixCode, setPixCode] = useState<string | null>(null);
   const [qrImg, setQrImg] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [paid, setPaid] = useState(false);
+  const [txId, setTxId] = useState<string | null>(null);
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    if (!txId || paid) return;
+    pollRef.current = setInterval(async () => {
+      try {
+        const r = await checkStatus({ data: { transactionId: txId } });
+        if (r.paid) {
+          setPaid(true);
+          toast.success("Pagamento confirmado!", { description: "Recebemos seu Pix. Obrigado!" });
+          if (pollRef.current) clearInterval(pollRef.current);
+        }
+      } catch {}
+    }, 4000);
+    return () => { if (pollRef.current) clearInterval(pollRef.current); };
+  }, [txId, paid, checkStatus]);
 
   const handlePay = async () => {
     setPixOpen(true);
     setLoading(true);
+    setPaid(false);
+    setTxId(null);
     setError(null);
     setPixCode(null);
     setQrImg(null);
     try {
-      type SaleRes = { error?: string; qrCode?: string; qrCodeBase64?: string };
+      type SaleRes = { error?: string; qrCode?: string; qrCodeBase64?: string; transactionId?: string };
       const res: SaleRes = await Promise.race([
         createSale({ data: { amount: 12952 } }) as Promise<SaleRes>,
         new Promise<SaleRes>((_, rej) => setTimeout(() => rej(new Error("timeout")), 20000)),
@@ -57,6 +78,7 @@ function Resumo() {
         toast.error("Falha ao gerar Pix", { description: friendly });
       } else {
         setPixCode(res.qrCode);
+        if (res.transactionId) setTxId(res.transactionId);
         if (res.qrCodeBase64) {
           setQrImg(res.qrCodeBase64);
         } else {
@@ -256,7 +278,17 @@ function Resumo() {
                   </div>
                 </div>
               )}
-              {!loading && !error && qrImg && (
+              {!loading && !error && paid && (
+                <div className="py-10 px-2 flex flex-col items-center text-center">
+                  <div className="size-16 rounded-full bg-[color:var(--teal-soft)] flex items-center justify-center mb-3">
+                    <CheckCircle2 className="size-9 text-[color:var(--teal)]" />
+                  </div>
+                  <h4 className="font-bold text-[18px] mb-1">Pagamento confirmado!</h4>
+                  <p className="text-sm text-muted-foreground mb-4 max-w-xs">Recebemos seu Pix. Seu pedido já está sendo processado.</p>
+                  <button onClick={() => setPixOpen(false)} className="h-10 px-6 rounded-full bg-primary text-primary-foreground text-sm font-semibold">Concluir</button>
+                </div>
+              )}
+              {!loading && !error && !paid && qrImg && (
                 <div className="flex flex-col items-center">
                   <div className="text-center mb-3">
                     <div className="text-xs text-muted-foreground">Total a pagar</div>
