@@ -496,9 +496,9 @@ function BottomBar() {
         <button className="flex flex-col items-center text-[11px] px-1">
           <MessageCircle className="size-5" /><span>Chat</span>
         </button>
-        <button className="flex-1 h-12 rounded-full bg-muted font-semibold text-[15px] leading-tight">
-          Adicionar<br/>ao carrinho
-        </button>
+        <Link to="/checkout" className="flex-1 h-12 rounded-full bg-muted font-semibold text-[15px] leading-tight flex flex-col items-center justify-center">
+          <span>Adicionar</span><span>ao carrinho</span>
+        </Link>
         <Link to="/checkout" className="flex-1 h-12 rounded-full bg-primary text-primary-foreground font-semibold text-[15px] leading-tight flex flex-col items-center justify-center">
           <span>Comprar</span><span>com cupom</span>
         </Link>
