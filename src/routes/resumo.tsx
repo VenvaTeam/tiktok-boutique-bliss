@@ -166,8 +166,8 @@ function Resumo() {
             </div>
             <div className="flex items-center justify-between mt-1">
               <div>
-                <div className="text-primary font-bold">R$ 128,32</div>
-                <div className="text-xs text-muted-foreground line-through">R$ 426,32 <span className="text-primary no-underline">-70%</span></div>
+                <div className="text-primary font-bold">{fmt(subtotal)}</div>
+                <div className="text-xs text-muted-foreground line-through">{fmt(original)} <span className="text-primary no-underline">-70%</span></div>
               </div>
               <div className="flex items-center border border-border rounded-md select-none">
                 <button onClick={() => setQty(q => Math.max(1, q - 1))} className="w-8 h-8 disabled:opacity-40" disabled={qty <= 1}>−</button>
