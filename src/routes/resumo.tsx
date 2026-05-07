@@ -37,6 +37,16 @@ function Resumo() {
   const [paid, setPaid] = useState(false);
   const [txId, setTxId] = useState<string | null>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [qty, setQty] = useState(1);
+  const UNIT = 12832;
+  const ORIG = 42632;
+  const SHIP = 120;
+  const subtotal = UNIT * qty;
+  const original = ORIG * qty;
+  const discountProd = original - subtotal;
+  const totalCents = subtotal + SHIP;
+  const fmt = (c: number) => `R$ ${(c / 100).toFixed(2).replace(".", ",")}`;
+  const economia = discountProd + 3000 + 3000;
 
   useEffect(() => {
     if (!txId || paid) return;
