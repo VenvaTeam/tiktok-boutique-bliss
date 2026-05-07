@@ -382,6 +382,7 @@ function Index() {
       <Offers />
       <CreatorVideos />
       <Reviews />
+      <StoreProfile />
       <BottomBar />
     </div>
   );
