@@ -9,7 +9,7 @@ export const Route = createFileRoute("/checkout")({
 
 function CheckoutForm() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ nome: "", endereco: "", cep: "", numero: "" });
+  const [form, setForm] = useState({ nome: "", celular: "", endereco: "", cep: "", numero: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -19,6 +19,7 @@ function CheckoutForm() {
     e.preventDefault();
     const errs: Record<string, string> = {};
     if (form.nome.trim().length < 2) errs.nome = "Informe seu nome";
+    if (form.celular.replace(/\D/g, "").length < 10) errs.celular = "Celular inválido";
     if (form.endereco.trim().length < 3) errs.endereco = "Informe o endereço";
     if (!/^\d{5}-?\d{3}$/.test(form.cep.trim())) errs.cep = "CEP inválido";
     if (!form.numero.trim()) errs.numero = "Informe o número";
@@ -28,6 +29,7 @@ function CheckoutForm() {
       to: "/resumo",
       search: {
         nome: form.nome.trim(),
+        celular: form.celular.trim(),
         endereco: form.endereco.trim(),
         cep: form.cep.trim(),
         numero: form.numero.trim(),
@@ -59,6 +61,7 @@ function CheckoutForm() {
       <form onSubmit={submit} className="p-4 space-y-4 pb-32">
         <p className="text-sm text-muted-foreground">Preencha seus dados para continuar com a compra.</p>
         {field("Nome completo", "nome", "João Silva")}
+        {field("Celular", "celular", "(11) 99999-9999", { inputMode: "tel", maxLength: 16 })}
         {field("Endereço", "endereco", "Endereço de entrega")}
         {field("CEP", "cep", "00000-000", { inputMode: "numeric", maxLength: 9 })}
         {field("Número", "numero", "Ex: 123", { inputMode: "numeric", maxLength: 10 })}
