@@ -5,6 +5,8 @@ import {
   Store, MessageCircle, Zap, Ticket, X, ChevronRight, Play,
 } from "lucide-react";
 import microondas from "@/assets/microondas.png";
+import loiBrasil from "@/assets/loi-brasil.png";
+import { Camera } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -271,13 +273,67 @@ function Reviews() {
         <Stars size="size-5" />
       </div>
       {REVIEWS.map((r, i) => <ReviewCard key={i} r={r} />)}
-      <div className="mt-5 pt-3 border-t border-border flex items-center justify-between">
+    </div>
+  );
+}
+
+const STORE_PRODUCTS = [
+  { price: "R$ 469,49", discount: "-63%" },
+  { price: "R$ 469,49", discount: "-32%" },
+  { price: "A partir de R$...", discount: "-31%" },
+  { price: "R$ 125,92", discount: "-36%" },
+];
+
+function StoreProfile() {
+  return (
+    <div className="bg-background mt-2 px-4 py-4 pb-24">
+      <div className="flex items-center justify-between">
         <h2 className="font-semibold text-[16px]">Avaliações da loja (14,5 mil)</h2>
         <ChevronRight className="size-5 text-muted-foreground" />
+      </div>
+      <div className="flex gap-2 mt-3">
+        <span className="bg-muted text-sm px-3 py-1.5 rounded-md flex items-center gap-1.5">
+          <Camera className="size-4" /> Inclui imagens ou vídeos (2,8 mil)
+        </span>
+        <span className="bg-muted text-sm px-3 py-1.5 rounded-md flex items-center gap-1.5">
+          5 <Star className="size-3.5 fill-yellow-400 text-yellow-400" /> (12,7 mil)
+        </span>
+      </div>
+
+      <div className="mt-5 pt-4 border-t border-border flex items-center gap-3">
+        <img src={loiBrasil} alt="LOi Brasil" loading="lazy" width={56} height={56} className="size-14 rounded-full object-cover" />
+        <div className="flex-1">
+          <div className="font-semibold text-[16px]">LOi Brasil</div>
+          <div className="text-sm text-muted-foreground">74.6K vendido(s)</div>
+        </div>
+        <button className="bg-muted px-5 py-2 rounded-full text-sm font-medium">Visitar</button>
+      </div>
+      <div className="mt-3 flex gap-5 text-sm">
+        <div><span className="font-bold">76%</span> <span className="text-muted-foreground">responde em 24 horas</span></div>
+        <div><span className="font-bold">99%</span> <span className="text-muted-foreground">envios pontuais</span></div>
+      </div>
+
+      <div className="mt-4 pt-3 border-t border-border flex items-center justify-between">
+        <h3 className="font-medium text-[15px]">Mais desta loja</h3>
+        <ChevronRight className="size-5 text-muted-foreground" />
+      </div>
+      <div className="flex gap-2 mt-3 overflow-x-auto -mx-4 px-4">
+        {STORE_PRODUCTS.map((p, i) => (
+          <div key={i} className="w-32 shrink-0">
+            <div className="aspect-square rounded-lg bg-muted overflow-hidden">
+              <img src={microondas} alt="" loading="lazy" className="w-full h-full object-cover" />
+            </div>
+            <div className="font-bold text-[15px] mt-2">{p.price}</div>
+            <span className="inline-block mt-1 bg-[color:var(--coupon-bg)] text-[color:var(--coupon-fg)] text-xs font-semibold px-1.5 py-0.5 rounded">
+              {p.discount}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
+
 
 function CouponBar() {
   return (
@@ -326,6 +382,7 @@ function Index() {
       <Offers />
       <CreatorVideos />
       <Reviews />
+      <StoreProfile />
       <BottomBar />
     </div>
   );
