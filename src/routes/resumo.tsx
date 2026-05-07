@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, MapPin, CreditCard, Zap, BadgeCheck, Ticket, Smile, Copy, X, Loader2, Check, AlertTriangle, Clock } from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin, CreditCard, Zap, BadgeCheck, Ticket, Smile, Copy, X, Loader2, Check, AlertTriangle, Clock, CheckCircle2 } from "lucide-react";
 import microondas from "@/assets/microondas.png";
 import pixLogo from "@/assets/pix-logo.png";
 import { useCountdown } from "@/hooks/use-countdown";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { createPixSale } from "@/lib/pix.functions";
+import { createPixSale, checkPixStatus } from "@/lib/pix.functions";
 import QRCode from "qrcode";
 import { toast } from "sonner";
 
