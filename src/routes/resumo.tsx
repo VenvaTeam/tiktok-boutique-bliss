@@ -227,7 +227,7 @@ function Resumo() {
           </div>
           <div className="flex-1">
             <div className="font-semibold text-[16px]">Pix</div>
-            <div className="text-sm text-muted-foreground">Efetue o pagamento em até 10 minutos para receber um <span className="font-bold text-primary">BRINDE ESPECIAL DO TIKTOK SHOP</span></div>
+            <div className="text-sm text-muted-foreground">Efetue o pagamento em até 10 minutos para receber um <span className="font-bold text-primary">BRINDE TORRADEIRA MONDIAL</span> <span className="font-medium">(Parceria TikTok Shop)</span></div>
           </div>
           <div className="size-5 rounded-full border-[6px] border-primary mt-1" />
         </div>
