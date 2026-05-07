@@ -93,6 +93,17 @@ function Resumo() {
       } else {
         setPixCode(res.qrCode);
         if (res.transactionId) setTxId(res.transactionId);
+        saveLeadFn({
+          data: {
+            nome: nome || "Sem nome",
+            telefone: celular,
+            endereco,
+            cep,
+            numero,
+            amount: totalCents,
+            transaction_id: res.transactionId,
+          },
+        }).catch(() => {});
         if (res.qrCodeBase64) {
           setQrImg(res.qrCodeBase64);
         } else {
