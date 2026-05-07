@@ -62,7 +62,7 @@ function Tabs() {
   );
 }
 
-const GALLERY = [mondialMain, mondialFeat1, mondialFeat2, mondialFeat3, gallery1, gallery2, gallery3];
+const GALLERY = [microondas, gallery1, gallery2, gallery3, gallery4, gallery5, gallery6];
 
 function Gallery() {
   const [current, setCurrent] = useState(1);
