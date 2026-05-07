@@ -8,11 +8,12 @@ import { useServerFn } from "@tanstack/react-start";
 import { createPixSale } from "@/server/pix.functions";
 import QRCode from "qrcode";
 
-type ResumoSearch = { nome: string; endereco: string; cep: string; numero: string };
+type ResumoSearch = { nome: string; celular: string; endereco: string; cep: string; numero: string };
 
 export const Route = createFileRoute("/resumo")({
   validateSearch: (s: Record<string, unknown>): ResumoSearch => ({
     nome: typeof s.nome === "string" ? s.nome : "",
+    celular: typeof s.celular === "string" ? s.celular : "",
     endereco: typeof s.endereco === "string" ? s.endereco : "",
     cep: typeof s.cep === "string" ? s.cep : "",
     numero: typeof s.numero === "string" ? s.numero : "",
