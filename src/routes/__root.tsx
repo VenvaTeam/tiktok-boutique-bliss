@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Seu Pedido" },
+      { name: "description", content: "TikTok Shop Creator enables creators to manage product sales and customer payments via Pix." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Seu Pedido" },
+      { property: "og:description", content: "TikTok Shop Creator enables creators to manage product sales and customer payments via Pix." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Seu Pedido" },
+      { name: "twitter:description", content: "TikTok Shop Creator enables creators to manage product sales and customer payments via Pix." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f9365774-e10a-425a-9606-45e99ba76b9a/id-preview-ce517085--42ca61f5-7ef7-4a0d-a0b3-ef1fc56794b9.lovable.app-1778136599860.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f9365774-e10a-425a-9606-45e99ba76b9a/id-preview-ce517085--42ca61f5-7ef7-4a0d-a0b3-ef1fc56794b9.lovable.app-1778136599860.png" },
     ],
     links: [
       {
