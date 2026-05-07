@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight, MapPin, CreditCard, Zap, BadgeCheck, Ticket, Smile } from "lucide-react";
 import microondas from "@/assets/microondas.png";
+import pixLogo from "@/assets/pix-logo.png";
 import { useCountdown } from "@/hooks/use-countdown";
 
 type ResumoSearch = { nome: string; endereco: string; cep: string; numero: string };
@@ -137,8 +138,8 @@ function Resumo() {
       <div className="bg-background mt-2 px-4 py-4">
         <h3 className="font-bold text-[17px] mb-3">Forma de pagamento</h3>
         <div className="flex items-start gap-3">
-          <div className="size-10 rounded-md bg-[color:var(--teal-soft)] flex items-center justify-center shrink-0">
-            <svg viewBox="0 0 24 24" className="size-6 text-[color:var(--teal)]" fill="currentColor"><path d="M12 2 2 12l10 10 10-10L12 2zm0 3.5L18.5 12 12 18.5 5.5 12 12 5.5z"/></svg>
+          <div className="size-10 rounded-md flex items-center justify-center shrink-0">
+            <img src={pixLogo} alt="Pix" className="size-9 object-contain" />
           </div>
           <div className="flex-1">
             <div className="font-semibold text-[16px]">Pix</div>
