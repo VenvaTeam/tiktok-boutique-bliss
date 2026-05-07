@@ -56,20 +56,20 @@ function Gallery() {
 
 function PriceBanner() {
   return (
-    <div className="relative text-white px-4 py-3" style={{ background: "linear-gradient(90deg, var(--flash-from), var(--flash-to))" }}>
-      <div className="flex items-end justify-between gap-3">
-        <div className="flex items-end gap-2">
-          <span className="bg-white text-[color:var(--coupon-fg)] text-xs font-bold px-1.5 py-0.5 rounded">-39%</span>
-          <span className="text-sm">R$</span>
-          <span className="text-3xl font-bold leading-none">426,32</span>
-          <Ticket className="size-4 mb-1" />
+    <div className="relative text-white px-3 py-2.5" style={{ background: "linear-gradient(90deg, var(--flash-from), var(--flash-to))" }}>
+      <div className="flex items-end justify-between gap-2">
+        <div className="flex items-end gap-1.5 min-w-0">
+          <span className="bg-white text-[color:var(--coupon-fg)] text-[10px] font-bold px-1 py-0.5 rounded shrink-0">-39%</span>
+          <span className="text-xs">R$</span>
+          <span className="text-[26px] font-bold leading-none">426,32</span>
+          <Ticket className="size-3.5 mb-1 shrink-0" />
         </div>
-        <div className="text-right">
-          <div className="flex items-center gap-1 font-semibold text-[15px]"><Zap className="size-4 fill-white" />Oferta Relâmpago</div>
-          <div className="text-xs opacity-95 mt-0.5">Termina em 22:37:54</div>
+        <div className="text-right shrink-0">
+          <div className="flex items-center gap-1 font-semibold text-[13px] whitespace-nowrap"><Zap className="size-3.5 fill-white" />Oferta Relâmpago</div>
+          <div className="text-[11px] opacity-95 mt-0.5">Termina em 22:37:54</div>
         </div>
       </div>
-      <div className="text-xs/none mt-1 line-through opacity-90">R$ 694,11</div>
+      <div className="text-[11px] mt-0.5 line-through opacity-90">R$ 694,11</div>
     </div>
   );
 }
