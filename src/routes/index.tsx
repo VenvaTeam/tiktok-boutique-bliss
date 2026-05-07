@@ -409,6 +409,7 @@ function Index() {
       <CreatorVideos />
       <Reviews />
       <StoreProfile />
+      <Description />
       <BottomBar />
     </div>
   );
