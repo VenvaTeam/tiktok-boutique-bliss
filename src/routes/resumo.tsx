@@ -302,7 +302,7 @@ function Resumo() {
                 <div className="flex flex-col items-center">
                   <div className="text-center mb-3">
                     <div className="text-xs text-muted-foreground">Total a pagar</div>
-                    <div className="text-primary font-bold text-[22px]">R$ 129,52</div>
+                    <div className="text-primary font-bold text-[22px]">{fmt(totalCents)}</div>
                   </div>
                   <img src={qrImg} alt="QR Code Pix" className="w-56 h-56 rounded-lg border border-border" />
                   <p className="text-xs text-muted-foreground mt-3 text-center">Escaneie o QR Code com o app do seu banco</p>
