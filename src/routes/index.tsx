@@ -1,11 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   ChevronLeft, Search, Share2, ShoppingCart, MoreHorizontal,
   Bookmark, Star, Truck, Grid2x2, Wallet, Shield, Check,
   Store, MessageCircle, Zap, Ticket, X, ChevronRight, Play,
 } from "lucide-react";
 import microondas from "@/assets/microondas.png";
+import mondialMain from "@/assets/mondial-main.png";
+import mondialFeat1 from "@/assets/mondial-feat-1.png";
+import mondialFeat2 from "@/assets/mondial-feat-2.png";
+import mondialFeat3 from "@/assets/mondial-feat-3.png";
 import desc1 from "@/assets/desc-1.png";
 import desc2 from "@/assets/desc-2.png";
 import { useCountdown } from "@/hooks/use-countdown";
@@ -58,12 +62,26 @@ function Tabs() {
   );
 }
 
-const GALLERY = [microondas, gallery1, gallery2, gallery3, gallery4, gallery5, gallery6];
+const GALLERY = [mondialMain, mondialFeat1, mondialFeat2, mondialFeat3, gallery1, gallery2, gallery3];
 
 function Gallery() {
+  const [current, setCurrent] = useState(1);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+
+  const onScroll = () => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const idx = Math.round(el.scrollLeft / el.clientWidth) + 1;
+    setCurrent(Math.min(Math.max(idx, 1), GALLERY.length));
+  };
+
   return (
     <div className="relative bg-white">
-      <div className="flex overflow-x-auto snap-x snap-mandatory aspect-square scrollbar-hide">
+      <div
+        ref={scrollerRef}
+        onScroll={onScroll}
+        className="flex overflow-x-auto snap-x snap-mandatory aspect-square scrollbar-hide"
+      >
         {GALLERY.map((src, i) => (
           <div key={i} className="snap-center shrink-0 w-full h-full flex items-center justify-center">
             <img src={src} alt={`Imagem ${i + 1}`} className="max-h-full max-w-full object-contain" />
@@ -71,8 +89,8 @@ function Gallery() {
         ))}
       </div>
       <div className="absolute bottom-3 right-3 bg-black/55 text-white text-xs px-2.5 py-1 rounded-full flex items-center gap-1.5">
-        <span>Vídeo</span>
-        <span className="bg-white/25 rounded-full px-1.5">1/{GALLERY.length}</span>
+        <span>Imagens</span>
+        <span className="bg-white/25 rounded-full px-1.5">{current}/{GALLERY.length}</span>
       </div>
     </div>
   );
