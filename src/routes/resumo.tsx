@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight, MapPin, CreditCard, Zap, BadgeCheck, Ticket, Smile } from "lucide-react";
 import microondas from "@/assets/microondas.png";
+import { useCountdown } from "@/hooks/use-countdown";
 
 type ResumoSearch = { nome: string; endereco: string; cep: string; numero: string };
 
@@ -17,6 +18,7 @@ export const Route = createFileRoute("/resumo")({
 
 function Resumo() {
   const { nome, endereco, cep, numero } = Route.useSearch();
+  const time = useCountdown();
 
   return (
     <div className="min-h-screen bg-muted/40 pb-32">
@@ -62,7 +64,7 @@ function Resumo() {
               <span className="bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5 rounded flex items-center gap-1">
                 <Zap className="size-3 fill-current" /> Oferta Relâmpago
               </span>
-              <span className="text-xs">22:28:48</span>
+              <span className="text-xs">{time}</span>
             </div>
             <div className="text-xs text-[color:var(--shield)] mt-1 flex items-center gap-1">
               <BadgeCheck className="size-3.5" /> Devolução gratuita
@@ -124,7 +126,7 @@ function Resumo() {
         </div>
         <button className="w-full h-12 rounded-full bg-primary text-primary-foreground font-semibold">
           Fazer pedido
-          <div className="text-xs font-normal opacity-90">O cupom expira em 22:28:48</div>
+          <div className="text-xs font-normal opacity-90">O cupom expira em {time}</div>
         </button>
       </div>
     </div>

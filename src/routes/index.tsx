@@ -8,6 +8,7 @@ import {
 import microondas from "@/assets/microondas.png";
 import desc1 from "@/assets/desc-1.png";
 import desc2 from "@/assets/desc-2.png";
+import { useCountdown } from "@/hooks/use-countdown";
 import gallery1 from "@/assets/gallery-1.png";
 import gallery2 from "@/assets/gallery-2.png";
 import gallery3 from "@/assets/gallery-3.png";
@@ -78,6 +79,7 @@ function Gallery() {
 }
 
 function PriceBanner() {
+  const time = useCountdown();
   return (
     <div className="relative text-white px-3 py-2.5" style={{ background: "linear-gradient(90deg, var(--flash-from), var(--flash-to))" }}>
       <div className="flex items-end justify-between gap-2">
@@ -89,7 +91,7 @@ function PriceBanner() {
         </div>
         <div className="text-right shrink-0">
           <div className="flex items-center gap-1 font-semibold text-[13px] whitespace-nowrap"><Zap className="size-3.5 fill-white" />Oferta Relâmpago</div>
-          <div className="text-[11px] opacity-95 mt-0.5">Termina em 22:37:54</div>
+          <div className="text-[11px] opacity-95 mt-0.5">Termina em {time}</div>
         </div>
       </div>
       <div className="text-[11px] mt-0.5 line-through opacity-90">R$ 694,11</div>
@@ -481,13 +483,14 @@ function Description() {
 
 
 function CouponBar() {
+  const time = useCountdown();
   return (
     <div className="bg-[color:var(--coupon-bg)] px-4 py-2.5 flex items-center gap-2 text-sm">
       <Zap className="size-4 text-[color:var(--coupon-fg)] fill-[color:var(--coupon-fg)]" />
       <span className="flex-1">
         <span className="text-[color:var(--coupon-fg)] font-semibold">O cupom de R$30</span> de desconto está expirando
       </span>
-      <span className="text-[color:var(--coupon-fg)] font-semibold">22:37:54</span>
+      <span className="text-[color:var(--coupon-fg)] font-semibold">{time}</span>
       <X className="size-4 text-muted-foreground" />
     </div>
   );
