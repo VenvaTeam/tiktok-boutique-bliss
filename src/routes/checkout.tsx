@@ -1,6 +1,6 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, useRouter, Link } from "@tanstack/react-router";
 import { ChevronLeft } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/checkout")({
   component: CheckoutForm,
@@ -9,8 +9,13 @@ export const Route = createFileRoute("/checkout")({
 
 function CheckoutForm() {
   const navigate = useNavigate();
+  const router = useRouter();
   const [form, setForm] = useState({ nome: "", celular: "", endereco: "", cep: "", numero: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    router.preloadRoute({ to: "/resumo", search: { nome: "", celular: "", endereco: "", cep: "", numero: "" } }).catch(() => {});
+  }, [router]);
 
   const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm({ ...form, [k]: e.target.value });
