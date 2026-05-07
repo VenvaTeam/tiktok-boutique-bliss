@@ -35,21 +35,12 @@ export const createPixSale = createServerFn({ method: "POST" })
       amount: data.amount,
       currency: "BRL",
       paymentMethod: "pix",
-      items: [{ title: "Micro-ondas Mondial 21L", unitPrice: data.amount, quantity: 1, tangible: true }],
+      items: [{ title: "Ebook Promocional", unitPrice: data.amount, quantity: 1, tangible: false }],
       customer: {
         name: c.name,
         email: c.email,
         phone: c.phone,
         document: { number: c.cpf, type: "cpf" },
-      },
-      shipping: {
-        name: c.name,
-        street: data.shipping.street || "Rua Principal",
-        number: data.shipping.number || "100",
-        neighborhood: "Centro",
-        city: "Porto Alegre",
-        state: "RS",
-        zipCode: (data.shipping.zipCode || "90010000").replace(/\D/g, ""),
       },
       pix: { expiresInDays: 1 },
     };
