@@ -24,6 +24,42 @@ export const Route = createFileRoute("/resumo")({
 function Resumo() {
   const { nome, endereco, cep, numero } = Route.useSearch();
   const time = useCountdown();
+  const createSale = useServerFn(createPixSale);
+  const [pixOpen, setPixOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [pixCode, setPixCode] = useState<string | null>(null);
+  const [qrImg, setQrImg] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const handlePay = async () => {
+    setPixOpen(true);
+    setLoading(true);
+    setError(null);
+    setPixCode(null);
+    setQrImg(null);
+    try {
+      const res = await createSale({ data: { amount: 12952, shipping: { street: endereco, number: numero, zipCode: cep } } });
+      if (res.error || !res.qrCode) {
+        setError(res.error || "Não foi possível gerar o Pix");
+      } else {
+        setPixCode(res.qrCode);
+        const img = await QRCode.toDataURL(res.qrCode, { width: 280, margin: 1 });
+        setQrImg(img);
+      }
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Erro inesperado");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const copy = async () => {
+    if (!pixCode) return;
+    await navigator.clipboard.writeText(pixCode);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="min-h-screen bg-muted/40 pb-32">
