@@ -6,6 +6,12 @@ import {
 } from "lucide-react";
 import microondas from "@/assets/microondas.png";
 import loiBrasil from "@/assets/loi-brasil.png";
+import review1 from "@/assets/review-1.png";
+import review2 from "@/assets/review-2.png";
+import review3 from "@/assets/review-3.png";
+import review4 from "@/assets/review-4.png";
+import review5 from "@/assets/review-5.png";
+import review6 from "@/assets/review-6.png";
 import { Camera } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -192,7 +198,8 @@ type Review = {
   name: string;
   variant: string;
   text: string;
-  photos: number;
+  photos: string[];
+  totalPhotos: number;
 };
 
 const REVIEWS: Review[] = [
@@ -202,7 +209,8 @@ const REVIEWS: Review[] = [
     name: "i** m**",
     variant: "Preto, 127V",
     text: "Chegou super rápido antes do prazo muito bem embalado funciona perfeitamente pra um soltei…",
-    photos: 6,
+    photos: [review1, review2, review3, review4],
+    totalPhotos: 6,
   },
   {
     initial: "P",
@@ -210,7 +218,8 @@ const REVIEWS: Review[] = [
     name: "P**a K**e",
     variant: "Preto, 220V",
     text: "Muito bom\nLindo …",
-    photos: 5,
+    photos: [review2, review5, review6, review3],
+    totalPhotos: 5,
   },
 ];
 
@@ -225,8 +234,8 @@ function Stars({ size = "size-4" }: { size?: string }) {
 }
 
 function ReviewCard({ r }: { r: Review }) {
-  const thumbs = Math.min(4, r.photos);
-  const extra = r.photos - thumbs;
+  const thumbs = r.photos.length;
+  const extra = r.totalPhotos - thumbs;
   return (
     <div className="pt-4">
       <div className="flex items-center gap-2">
@@ -242,9 +251,9 @@ function ReviewCard({ r }: { r: Review }) {
       <div className="text-sm text-muted-foreground mt-2">Item: {r.variant}</div>
       <p className="text-[15px] mt-2 whitespace-pre-line leading-snug">{r.text}</p>
       <div className="grid grid-cols-4 gap-2 mt-3">
-        {Array.from({ length: thumbs }).map((_, i) => (
+        {r.photos.map((src, i) => (
           <div key={i} className="relative aspect-square rounded-md bg-muted overflow-hidden">
-            <img src={microondas} alt="" className="w-full h-full object-cover" />
+            <img src={src} alt="" className="w-full h-full object-cover" />
             {i === 0 && <Play className="size-7 text-white absolute inset-0 m-auto fill-white/60" />}
             {i === thumbs - 1 && extra > 0 && (
               <div className="absolute inset-0 bg-black/55 flex items-center justify-center text-white font-semibold">
