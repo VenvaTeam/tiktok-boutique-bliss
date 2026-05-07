@@ -6,10 +6,6 @@ import {
   Store, MessageCircle, Zap, Ticket, X, ChevronRight, Play,
 } from "lucide-react";
 import microondas from "@/assets/microondas.png";
-import mondialMain from "@/assets/mondial-main.png";
-import mondialFeat1 from "@/assets/mondial-feat-1.png";
-import mondialFeat2 from "@/assets/mondial-feat-2.png";
-import mondialFeat3 from "@/assets/mondial-feat-3.png";
 import desc1 from "@/assets/desc-1.png";
 import desc2 from "@/assets/desc-2.png";
 import { useCountdown } from "@/hooks/use-countdown";
@@ -62,7 +58,7 @@ function Tabs() {
   );
 }
 
-const GALLERY = [mondialMain, mondialFeat1, mondialFeat2, mondialFeat3, gallery1, gallery2, gallery3];
+const GALLERY = [microondas, gallery1, gallery2, gallery3, gallery4, gallery5, gallery6];
 
 function Gallery() {
   const [current, setCurrent] = useState(1);
