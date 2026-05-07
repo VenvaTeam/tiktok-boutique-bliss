@@ -206,11 +206,16 @@ function Resumo() {
         <div className="flex justify-between font-semibold">
           <span>Subtotal do produto</span><span>R$ 128,32</span>
         </div>
-        <div className="flex justify-between text-sm">
-          <span className="text-foreground/80 ml-3">Preço original</span><span>R$ 426,32</span>
+      <div className="bg-background mt-2 px-4 py-4 space-y-3">
+        <h3 className="font-bold text-[17px]">Resumo do pedido</h3>
+        <div className="flex justify-between font-semibold">
+          <span>Subtotal do produto</span><span>{fmt(subtotal)}</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-foreground/80 ml-3">Desconto no produto</span><span className="text-primary">- R$ 268,00</span>
+          <span className="text-foreground/80 ml-3">Preço original</span><span>{fmt(original)}</span>
+        </div>
+        <div className="flex justify-between text-sm">
+          <span className="text-foreground/80 ml-3">Desconto no produto</span><span className="text-primary">- {fmt(discountProd)}</span>
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-foreground/80 ml-3">Cupons do TikTok Shop</span><span className="text-primary">- R$ 30,00</span>
@@ -225,7 +230,7 @@ function Resumo() {
           <span className="text-foreground/80 ml-3">Desconto de envio</span><span className="text-primary">- R$ 30,00</span>
         </div>
         <div className="bg-[color:var(--coupon-bg)] -mx-4 px-4 py-2 flex items-center gap-2 text-primary text-sm">
-          <Smile className="size-4" /> Você está economizando R$ 298,00 nesse pedido.
+          <Smile className="size-4" /> Você está economizando {fmt(economia)} nesse pedido.
         </div>
       </div>
 
