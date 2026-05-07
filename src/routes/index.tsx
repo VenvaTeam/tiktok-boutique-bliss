@@ -79,7 +79,7 @@ function PriceBanner() {
     <div className="relative text-white px-3 py-2.5" style={{ background: "linear-gradient(90deg, var(--flash-from), var(--flash-to))" }}>
       <div className="flex items-end justify-between gap-2">
         <div className="flex items-end gap-1.5 min-w-0">
-          <span className="bg-white text-[color:var(--coupon-fg)] text-[10px] font-bold px-1 py-0.5 rounded shrink-0">-39%</span>
+          <span className="bg-white text-[color:var(--coupon-fg)] text-[10px] font-bold px-1 py-0.5 rounded shrink-0">-82%</span>
           <span className="text-xs">R$</span>
           <span className="text-[26px] font-bold leading-none">128,32</span>
           <Ticket className="size-3.5 mb-1 shrink-0" />
