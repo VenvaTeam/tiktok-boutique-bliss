@@ -58,8 +58,8 @@ function CheckoutForm() {
       </div>
       <form onSubmit={submit} className="p-4 space-y-4 pb-32">
         <p className="text-sm text-muted-foreground">Preencha seus dados para continuar com a compra.</p>
-        {field("Nome completo", "nome", "Ex: Filipe Araújo")}
-        {field("Endereço", "endereco", "Ex: Avenida Protásio Alves")}
+        {field("Nome completo", "nome", "João Silva")}
+        {field("Endereço", "endereco", "Endereço de entrega")}
         {field("CEP", "cep", "00000-000", { inputMode: "numeric", maxLength: 9 })}
         {field("Número", "numero", "Ex: 123", { inputMode: "numeric", maxLength: 10 })}
         <button
