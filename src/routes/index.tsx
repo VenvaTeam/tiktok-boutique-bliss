@@ -106,7 +106,7 @@ function Gallery() {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
-        className="flex overflow-x-auto snap-x snap-mandatory aspect-square cursor-grab active:cursor-grabbing select-none touch-pan-x"
+        className="flex overflow-x-auto snap-x snap-mandatory aspect-square cursor-grab active:cursor-grabbing select-none touch-pan-x no-scrollbar"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {GALLERY.map((src, i) => (
