@@ -40,6 +40,15 @@ function Resumo() {
   const [paid, setPaid] = useState(false);
   const [txId, setTxId] = useState<string | null>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [brindeLeft, setBrindeLeft] = useState(600);
+  useEffect(() => {
+    if (!qrImg || paid) return;
+    setBrindeLeft(600);
+    const i = setInterval(() => setBrindeLeft((s) => (s > 0 ? s - 1 : 0)), 1000);
+    return () => clearInterval(i);
+  }, [qrImg, paid]);
+  const mm = String(Math.floor(brindeLeft / 60)).padStart(2, "0");
+  const ss = String(brindeLeft % 60).padStart(2, "0");
   const [qty, setQty] = useState(1);
   const UNIT = 12832;
   const ORIG = 42632;
@@ -319,6 +328,17 @@ function Resumo() {
                     <div className="text-xs text-muted-foreground">Total a pagar</div>
                     <div className="text-primary font-bold text-[22px]">{fmt(totalCents)}</div>
                   </div>
+                  <div className={`w-full mb-3 rounded-xl px-3 py-2 text-center ${brindeLeft > 0 ? "bg-[color:var(--teal-soft)] text-[color:var(--teal)]" : "bg-muted text-muted-foreground"}`}>
+                    {brindeLeft > 0 ? (
+                      <>
+                        <div className="text-[11px] font-semibold uppercase tracking-wide">🎁 Pague agora e ganhe</div>
+                        <div className="text-[13px] font-bold leading-tight">Torradeira Mondial GRÁTIS no envio</div>
+                        <div className="text-[20px] font-bold tabular-nums mt-1">{mm}:{ss}</div>
+                      </>
+                    ) : (
+                      <div className="text-[12px] font-medium">Tempo do brinde encerrado. O QR ainda é válido por 24h.</div>
+                    )}
+                  </div>
                   <img src={qrImg} alt="QR Code Pix" className="w-56 h-56 rounded-lg border border-border" />
                   <p className="text-xs text-muted-foreground mt-3 text-center">Escaneie o QR Code com o app do seu banco</p>
                   <div className="w-full mt-4">
@@ -330,7 +350,7 @@ function Resumo() {
                       </button>
                     </div>
                   </div>
-                  <p className="text-[11px] text-muted-foreground mt-3 text-center">Após o pagamento, a confirmação é automática.</p>
+                  <p className="text-[11px] text-muted-foreground mt-3 text-center">QR válido por 24h • Confirmação automática após o pagamento.</p>
                 </div>
               )}
             </div>
