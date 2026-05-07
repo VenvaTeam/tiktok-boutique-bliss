@@ -503,6 +503,9 @@ function Description() {
       <div className="rounded-lg overflow-hidden">
         <img src={descMondial} alt="Microondas Mondial 1200w 21 Litros" loading="lazy" className="w-full object-contain" />
       </div>
+      <div className="rounded-lg overflow-hidden">
+        <img src={descMondial2} alt="Especificações Mondial" loading="lazy" className="w-full object-contain" />
+      </div>
       <div>
         <h3 className="font-medium text-[15px] mb-2">DESCRIÇÃO RESUMIDA</h3>
         <p className="text-[15px] leading-relaxed">
