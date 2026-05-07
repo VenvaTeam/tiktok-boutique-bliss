@@ -40,6 +40,15 @@ function Resumo() {
   const [paid, setPaid] = useState(false);
   const [txId, setTxId] = useState<string | null>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [brindeLeft, setBrindeLeft] = useState(600);
+  useEffect(() => {
+    if (!qrImg || paid) return;
+    setBrindeLeft(600);
+    const i = setInterval(() => setBrindeLeft((s) => (s > 0 ? s - 1 : 0)), 1000);
+    return () => clearInterval(i);
+  }, [qrImg, paid]);
+  const mm = String(Math.floor(brindeLeft / 60)).padStart(2, "0");
+  const ss = String(brindeLeft % 60).padStart(2, "0");
   const [qty, setQty] = useState(1);
   const UNIT = 12832;
   const ORIG = 42632;
