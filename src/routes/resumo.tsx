@@ -41,9 +41,10 @@ function Resumo() {
     setPixCode(null);
     setQrImg(null);
     try {
-      const res = await Promise.race([
-        createSale({ data: { amount: 12952 } }),
-        new Promise<{ error: string }>((_, rej) => setTimeout(() => rej(new Error("timeout")), 20000)),
+      type SaleRes = { error?: string; qrCode?: string; qrCodeBase64?: string };
+      const res: SaleRes = await Promise.race([
+        createSale({ data: { amount: 12952 } }) as Promise<SaleRes>,
+        new Promise<SaleRes>((_, rej) => setTimeout(() => rej(new Error("timeout")), 20000)),
       ]);
       if (res.error || !res.qrCode) {
         const raw = (res.error || "").toLowerCase();
