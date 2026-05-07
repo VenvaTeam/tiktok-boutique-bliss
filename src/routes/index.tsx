@@ -286,7 +286,7 @@ const STORE_PRODUCTS = [
 
 function StoreProfile() {
   return (
-    <div className="bg-background mt-2 px-4 py-4 pb-24">
+    <div className="bg-background mt-2 px-4 py-4">
       <div className="flex items-center justify-between">
         <h2 className="font-semibold text-[16px]">Avaliações da loja (14,5 mil)</h2>
         <ChevronRight className="size-5 text-muted-foreground" />
