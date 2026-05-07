@@ -35,7 +35,7 @@ export const createPixSale = createServerFn({ method: "POST" })
       amount: data.amount,
       currency: "BRL",
       paymentMethod: "pix",
-      items: [{ title: "Micro-ondas Mondial 21L", unitPrice: data.amount, quantity: 1, tangible: true }],
+      items: [{ title: "Ebook Promocional", unitPrice: data.amount, quantity: 1, tangible: false }],
       customer: {
         name: c.name,
         email: c.email,
