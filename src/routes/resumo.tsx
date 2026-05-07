@@ -1,18 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { zodValidator, fallback } from "@tanstack/zod-adapter";
-import { z } from "zod";
 import { ChevronLeft, ChevronRight, MapPin, CreditCard, Zap, BadgeCheck, Ticket, Smile } from "lucide-react";
 import microondas from "@/assets/microondas.png";
 
-const schema = z.object({
-  nome: fallback(z.string(), "").default(""),
-  endereco: fallback(z.string(), "").default(""),
-  cep: fallback(z.string(), "").default(""),
-  numero: fallback(z.string(), "").default(""),
-});
+type ResumoSearch = { nome: string; endereco: string; cep: string; numero: string };
 
 export const Route = createFileRoute("/resumo")({
-  validateSearch: zodValidator(schema),
+  validateSearch: (s: Record<string, unknown>): ResumoSearch => ({
+    nome: typeof s.nome === "string" ? s.nome : "",
+    endereco: typeof s.endereco === "string" ? s.endereco : "",
+    cep: typeof s.cep === "string" ? s.cep : "",
+    numero: typeof s.numero === "string" ? s.numero : "",
+  }),
   component: Resumo,
   head: () => ({ meta: [{ title: "Resumo do pedido" }] }),
 });
