@@ -108,7 +108,7 @@ function ProductInfo() {
   return (
     <div className="bg-background">
       <Row icon={<Wallet className="size-5" />}>
-        <span>5x R$ 85,26 </span>
+        <span>À vista no Pix </span>
         <span className="text-[color:var(--coupon-fg)] font-semibold">sem juros</span>
       </Row>
       <Row icon={<Ticket className="size-5 text-[color:var(--coupon-fg)]" />}>
