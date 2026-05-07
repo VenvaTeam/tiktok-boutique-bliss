@@ -170,7 +170,7 @@ function Offers() {
 
 function CreatorVideos() {
   return (
-    <div className="bg-background mt-2 px-4 py-3 pb-24">
+    <div className="bg-background mt-2 px-4 py-3">
       <h2 className="font-semibold text-[16px]">Vídeos de criadores (30+)</h2>
       <div className="flex gap-2 mt-3 overflow-x-auto -mx-4 px-4">
         {[1,2,3,4].map(i => (
@@ -179,6 +179,101 @@ function CreatorVideos() {
             <img src={microondas} alt="" className="w-full h-full object-cover opacity-80" />
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+type Review = {
+  initial: string;
+  avatarColor: string;
+  name: string;
+  variant: string;
+  text: string;
+  photos: number;
+};
+
+const REVIEWS: Review[] = [
+  {
+    initial: "i",
+    avatarColor: "oklch(0.45 0.12 250)",
+    name: "i** m**",
+    variant: "Preto, 127V",
+    text: "Chegou super rápido antes do prazo muito bem embalado funciona perfeitamente pra um soltei…",
+    photos: 6,
+  },
+  {
+    initial: "P",
+    avatarColor: "oklch(0.7 0.12 60)",
+    name: "P**a K**e",
+    variant: "Preto, 220V",
+    text: "Muito bom\nLindo …",
+    photos: 5,
+  },
+];
+
+function Stars({ size = "size-4" }: { size?: string }) {
+  return (
+    <div className="flex gap-0.5">
+      {[0,1,2,3,4].map(i => (
+        <Star key={i} className={`${size} fill-yellow-400 text-yellow-400`} />
+      ))}
+    </div>
+  );
+}
+
+function ReviewCard({ r }: { r: Review }) {
+  const thumbs = Math.min(4, r.photos);
+  const extra = r.photos - thumbs;
+  return (
+    <div className="pt-4">
+      <div className="flex items-center gap-2">
+        <div
+          className="size-7 rounded-full flex items-center justify-center text-white text-xs font-semibold"
+          style={{ background: r.avatarColor }}
+        >
+          {r.initial}
+        </div>
+        <span className="font-semibold text-[15px]">{r.name}</span>
+      </div>
+      <div className="mt-2"><Stars /></div>
+      <div className="text-sm text-muted-foreground mt-2">Item: {r.variant}</div>
+      <p className="text-[15px] mt-2 whitespace-pre-line leading-snug">{r.text}</p>
+      <div className="grid grid-cols-4 gap-2 mt-3">
+        {Array.from({ length: thumbs }).map((_, i) => (
+          <div key={i} className="relative aspect-square rounded-md bg-muted overflow-hidden">
+            <img src={microondas} alt="" className="w-full h-full object-cover" />
+            {i === 0 && <Play className="size-7 text-white absolute inset-0 m-auto fill-white/60" />}
+            {i === thumbs - 1 && extra > 0 && (
+              <div className="absolute inset-0 bg-black/55 flex items-center justify-center text-white font-semibold">
+                +{extra}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Reviews() {
+  return (
+    <div className="bg-background mt-2 px-4 py-4 pb-24">
+      <div className="flex items-center justify-between">
+        <h2 className="font-semibold text-[16px]">Avaliações dos clientes (271)</h2>
+        <button className="text-sm text-muted-foreground flex items-center">
+          Ver mais <ChevronRight className="size-4" />
+        </button>
+      </div>
+      <div className="flex items-center gap-2 mt-3">
+        <span className="text-[22px] font-bold leading-none">4.8</span>
+        <span className="text-sm text-muted-foreground">/5</span>
+        <Stars size="size-5" />
+      </div>
+      {REVIEWS.map((r, i) => <ReviewCard key={i} r={r} />)}
+      <div className="mt-5 pt-3 border-t border-border flex items-center justify-between">
+        <h2 className="font-semibold text-[16px]">Avaliações da loja (14,5 mil)</h2>
+        <ChevronRight className="size-5 text-muted-foreground" />
       </div>
     </div>
   );
@@ -230,6 +325,7 @@ function Index() {
       <Overview />
       <Offers />
       <CreatorVideos />
+      <Reviews />
       <BottomBar />
     </div>
   );
