@@ -8,6 +8,7 @@ import {
 import microondas from "@/assets/microondas.png";
 import desc1 from "@/assets/desc-1.png";
 import desc2 from "@/assets/desc-2.png";
+import { useCountdown } from "@/hooks/use-countdown";
 import gallery1 from "@/assets/gallery-1.png";
 import gallery2 from "@/assets/gallery-2.png";
 import gallery3 from "@/assets/gallery-3.png";
