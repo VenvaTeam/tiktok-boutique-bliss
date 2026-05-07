@@ -27,16 +27,37 @@ function Resumo() {
   const { nome, endereco, cep, numero } = Route.useSearch();
   const time = useCountdown();
   const createSale = useServerFn(createPixSale);
+  const checkStatus = useServerFn(checkPixStatus);
   const [pixOpen, setPixOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [pixCode, setPixCode] = useState<string | null>(null);
   const [qrImg, setQrImg] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [paid, setPaid] = useState(false);
+  const [txId, setTxId] = useState<string | null>(null);
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    if (!txId || paid) return;
+    pollRef.current = setInterval(async () => {
+      try {
+        const r = await checkStatus({ data: { transactionId: txId } });
+        if (r.paid) {
+          setPaid(true);
+          toast.success("Pagamento confirmado!", { description: "Recebemos seu Pix. Obrigado!" });
+          if (pollRef.current) clearInterval(pollRef.current);
+        }
+      } catch {}
+    }, 4000);
+    return () => { if (pollRef.current) clearInterval(pollRef.current); };
+  }, [txId, paid, checkStatus]);
 
   const handlePay = async () => {
     setPixOpen(true);
     setLoading(true);
+    setPaid(false);
+    setTxId(null);
     setError(null);
     setPixCode(null);
     setQrImg(null);
