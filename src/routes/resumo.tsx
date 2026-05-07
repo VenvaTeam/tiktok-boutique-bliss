@@ -204,11 +204,6 @@ function Resumo() {
       <div className="bg-background mt-2 px-4 py-4 space-y-3">
         <h3 className="font-bold text-[17px]">Resumo do pedido</h3>
         <div className="flex justify-between font-semibold">
-          <span>Subtotal do produto</span><span>R$ 128,32</span>
-        </div>
-      <div className="bg-background mt-2 px-4 py-4 space-y-3">
-        <h3 className="font-bold text-[17px]">Resumo do pedido</h3>
-        <div className="flex justify-between font-semibold">
           <span>Subtotal do produto</span><span>{fmt(subtotal)}</span>
         </div>
         <div className="flex justify-between text-sm">
