@@ -63,6 +63,11 @@ const GALLERY = [microondas, gallery1, gallery2, gallery3, gallery4, gallery5, g
 function Gallery() {
   const [current, setCurrent] = useState(1);
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef<{ startX: number; startScroll: number; active: boolean }>({
+    startX: 0,
+    startScroll: 0,
+    active: false,
+  });
 
   const onScroll = () => {
     const el = scrollerRef.current;
@@ -71,16 +76,42 @@ function Gallery() {
     setCurrent(Math.min(Math.max(idx, 1), GALLERY.length));
   };
 
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    dragRef.current = { startX: e.clientX, startScroll: el.scrollLeft, active: true };
+    el.setPointerCapture(e.pointerId);
+  };
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = scrollerRef.current;
+    if (!el || !dragRef.current.active) return;
+    el.scrollLeft = dragRef.current.startScroll - (e.clientX - dragRef.current.startX);
+  };
+  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    dragRef.current.active = false;
+    try { el.releasePointerCapture(e.pointerId); } catch {}
+    // snap to nearest
+    const idx = Math.round(el.scrollLeft / el.clientWidth);
+    el.scrollTo({ left: idx * el.clientWidth, behavior: "smooth" });
+  };
+
   return (
     <div className="relative bg-white">
       <div
         ref={scrollerRef}
         onScroll={onScroll}
-        className="flex overflow-x-auto snap-x snap-mandatory aspect-square scrollbar-hide"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
+        className="flex overflow-x-auto snap-x snap-mandatory aspect-square cursor-grab active:cursor-grabbing select-none touch-pan-x"
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         {GALLERY.map((src, i) => (
           <div key={i} className="snap-center shrink-0 w-full h-full flex items-center justify-center">
-            <img src={src} alt={`Imagem ${i + 1}`} className="max-h-full max-w-full object-contain" />
+            <img src={src} alt={`Imagem ${i + 1}`} draggable={false} className="max-h-full max-w-full object-contain pointer-events-none" />
           </div>
         ))}
       </div>
