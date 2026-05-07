@@ -74,7 +74,7 @@ function Resumo() {
     try {
       type SaleRes = { error?: string; qrCode?: string; qrCodeBase64?: string; transactionId?: string };
       const res: SaleRes = await Promise.race([
-        createSale({ data: { amount: 12952 } }) as Promise<SaleRes>,
+        createSale({ data: { amount: totalCents } }) as Promise<SaleRes>,
         new Promise<SaleRes>((_, rej) => setTimeout(() => rej(new Error("timeout")), 20000)),
       ]);
       if (res.error || !res.qrCode) {
