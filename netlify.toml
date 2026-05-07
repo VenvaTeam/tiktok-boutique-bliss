@@ -1,0 +1,23 @@
+[build]
+  command = "bun run build"
+  publish = ".output/public"
+
+[functions]
+  directory = ".output/server"
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server"
+  status = 200
+  force = false
+
+# Variáveis de ambiente (configure no painel da Netlify):
+#   VITE_SUPABASE_URL
+#   VITE_SUPABASE_PUBLISHABLE_KEY
+#   VITE_SUPABASE_PROJECT_ID
+#   SUPABASE_URL
+#   SUPABASE_PUBLISHABLE_KEY
+#   SUPABASE_SERVICE_ROLE_KEY
+#   LOVABLE_API_KEY (se usar Lovable AI)
+#   FYHUB_API_KEY  (ou o nome do secret do seu provedor de Pix)
