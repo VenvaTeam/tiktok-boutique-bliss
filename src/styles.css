@@ -57,3 +57,6 @@
     -webkit-font-smoothing: antialiased;
   }
 }
+
+/* Hide horizontal scrollbar on swipe galleries */
+.no-scrollbar::-webkit-scrollbar { display: none; }
