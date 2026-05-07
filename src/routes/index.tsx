@@ -6,6 +6,8 @@ import {
   Store, MessageCircle, Zap, Ticket, X, ChevronRight, Play,
 } from "lucide-react";
 import microondas from "@/assets/microondas.png";
+import desc1 from "@/assets/desc-1.png";
+import desc2 from "@/assets/desc-2.png";
 import gallery1 from "@/assets/gallery-1.png";
 import gallery2 from "@/assets/gallery-2.png";
 import gallery3 from "@/assets/gallery-3.png";
@@ -466,6 +468,12 @@ function Description() {
       </div>
       <div className="rounded-lg overflow-hidden bg-muted mt-3">
         <img src={microondas} alt="Micro-ondas Mondial" loading="lazy" className="w-full object-cover" />
+      </div>
+      <div className="rounded-lg overflow-hidden mt-3">
+        <img src={desc1} alt="Detalhes do micro-ondas" loading="lazy" className="w-full object-contain" />
+      </div>
+      <div className="rounded-lg overflow-hidden mt-3">
+        <img src={desc2} alt="Especificações do micro-ondas" loading="lazy" className="w-full object-contain" />
       </div>
     </div>
   );
