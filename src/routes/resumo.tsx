@@ -78,6 +78,7 @@ function Resumo() {
         toast.error("Falha ao gerar Pix", { description: friendly });
       } else {
         setPixCode(res.qrCode);
+        if (res.transactionId) setTxId(res.transactionId);
         if (res.qrCodeBase64) {
           setQrImg(res.qrCodeBase64);
         } else {
