@@ -286,11 +286,16 @@ function Reviews() {
   );
 }
 
+import store1 from "@/assets/store-1.png";
+import store2 from "@/assets/store-2.png";
+import store3 from "@/assets/store-3.png";
+import store4 from "@/assets/store-4.png";
+
 const STORE_PRODUCTS = [
-  { price: "R$ 469,49", discount: "-63%" },
-  { price: "R$ 469,49", discount: "-32%" },
-  { price: "A partir de R$...", discount: "-31%" },
-  { price: "R$ 125,92", discount: "-36%" },
+  { img: store1, price: "A partir de R$...", discount: "-31%" },
+  { img: store2, price: "R$ 87,62", discount: "-26%" },
+  { img: store3, price: "R$ 469,49", discount: "-63%" },
+  { img: store4, price: "R$ 469,49", discount: "-32%" },
 ];
 
 function StoreProfile() {
@@ -330,7 +335,7 @@ function StoreProfile() {
         {STORE_PRODUCTS.map((p, i) => (
           <div key={i} className="w-32 shrink-0">
             <div className="aspect-square rounded-lg bg-muted overflow-hidden">
-              <img src={microondas} alt="" loading="lazy" className="w-full h-full object-cover" />
+              <img src={p.img} alt="" loading="lazy" className="w-full h-full object-cover" />
             </div>
             <div className="font-bold text-[15px] mt-2">{p.price}</div>
             <span className="inline-block mt-1 bg-[color:var(--coupon-bg)] text-[color:var(--coupon-fg)] text-xs font-semibold px-1.5 py-0.5 rounded">
