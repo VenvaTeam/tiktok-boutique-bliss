@@ -5,6 +5,12 @@ import {
   Store, MessageCircle, Zap, Ticket, X, ChevronRight, Play,
 } from "lucide-react";
 import microondas from "@/assets/microondas.png";
+import gallery1 from "@/assets/gallery-1.png";
+import gallery2 from "@/assets/gallery-2.png";
+import gallery3 from "@/assets/gallery-3.png";
+import gallery4 from "@/assets/gallery-4.png";
+import gallery5 from "@/assets/gallery-5.png";
+import gallery6 from "@/assets/gallery-6.png";
 import loiBrasil from "@/assets/loi-brasil.png";
 import review1 from "@/assets/review-1.png";
 import review2 from "@/assets/review-2.png";
@@ -48,15 +54,21 @@ function Tabs() {
   );
 }
 
+const GALLERY = [microondas, gallery1, gallery2, gallery3, gallery4, gallery5, gallery6];
+
 function Gallery() {
   return (
     <div className="relative bg-white">
-      <div className="aspect-square flex items-center justify-center">
-        <img src={microondas} alt="Micro-ondas Mondial" className="max-h-full max-w-full object-contain" />
+      <div className="flex overflow-x-auto snap-x snap-mandatory aspect-square scrollbar-hide">
+        {GALLERY.map((src, i) => (
+          <div key={i} className="snap-center shrink-0 w-full h-full flex items-center justify-center">
+            <img src={src} alt={`Imagem ${i + 1}`} className="max-h-full max-w-full object-contain" />
+          </div>
+        ))}
       </div>
       <div className="absolute bottom-3 right-3 bg-black/55 text-white text-xs px-2.5 py-1 rounded-full flex items-center gap-1.5">
         <span>Vídeo</span>
-        <span className="bg-white/25 rounded-full px-1.5">1/9</span>
+        <span className="bg-white/25 rounded-full px-1.5">1/{GALLERY.length}</span>
       </div>
     </div>
   );
