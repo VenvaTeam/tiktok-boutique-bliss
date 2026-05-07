@@ -114,6 +114,21 @@ function Resumo() {
         <div className="flex justify-between text-sm">
           <span className="text-foreground/80 ml-3">Preço original</span><span>R$ 426,32</span>
         </div>
+        <div className="flex justify-between text-sm">
+          <span className="text-foreground/80 ml-3">Desconto no produto</span><span className="text-primary">- R$ 268,00</span>
+        </div>
+        <div className="flex justify-between text-sm">
+          <span className="text-foreground/80 ml-3">Cupons do TikTok Shop</span><span className="text-primary">- R$ 30,00</span>
+        </div>
+        <div className="flex justify-between font-semibold pt-1">
+          <span>Subtotal do envio</span><span>R$ 1,20</span>
+        </div>
+        <div className="flex justify-between text-sm">
+          <span className="text-foreground/80 ml-3">Taxa de envio</span><span>R$ 31,20</span>
+        </div>
+        <div className="flex justify-between text-sm">
+          <span className="text-foreground/80 ml-3">Desconto de envio</span><span className="text-primary">- R$ 30,00</span>
+        </div>
         <div className="bg-[color:var(--coupon-bg)] -mx-4 px-4 py-2 flex items-center gap-2 text-primary text-sm">
           <Smile className="size-4" /> Você está economizando R$ 298,00 nesse pedido.
         </div>
