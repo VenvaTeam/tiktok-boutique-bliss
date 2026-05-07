@@ -188,15 +188,24 @@ function Offers() {
   );
 }
 
+import creator1 from "@/assets/creator-1.png";
+import creator2 from "@/assets/creator-2.png";
+import creator3 from "@/assets/creator-3.png";
+import creator4 from "@/assets/creator-4.png";
+import creator5 from "@/assets/creator-5.png";
+import creator6 from "@/assets/creator-6.png";
+
+const CREATOR_VIDEOS = [creator1, creator2, creator3, creator4, creator5, creator6];
+
 function CreatorVideos() {
   return (
     <div className="bg-background mt-2 px-4 py-3">
       <h2 className="font-semibold text-[16px]">Vídeos de criadores (30+)</h2>
       <div className="flex gap-2 mt-3 overflow-x-auto -mx-4 px-4">
-        {[1,2,3,4].map(i => (
-          <div key={i} className="relative w-32 h-44 rounded-lg bg-muted shrink-0 overflow-hidden flex items-center justify-center">
+        {CREATOR_VIDEOS.map((src, i) => (
+          <div key={i} className="relative w-32 h-44 rounded-lg bg-muted shrink-0 overflow-hidden">
+            <img src={src} alt="" className="w-full h-full object-cover" />
             <Play className="size-7 text-white/90 fill-white/40 absolute top-2 left-2" />
-            <img src={microondas} alt="" className="w-full h-full object-cover opacity-80" />
           </div>
         ))}
       </div>
