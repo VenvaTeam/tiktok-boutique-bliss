@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { createPixSale } from "@/server/pix.functions";
 import QRCode from "qrcode";
+import { toast } from "sonner";
 
 type ResumoSearch = { nome: string; celular: string; endereco: string; cep: string; numero: string };
 
@@ -59,6 +60,7 @@ function Resumo() {
     if (!pixCode) return;
     await navigator.clipboard.writeText(pixCode);
     setCopied(true);
+    toast.success("Código Pix copiado!", { description: "Cole no app do seu banco para pagar." });
     setTimeout(() => setCopied(false), 2000);
   };
 
