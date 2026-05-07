@@ -37,6 +37,16 @@ function Resumo() {
   const [paid, setPaid] = useState(false);
   const [txId, setTxId] = useState<string | null>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [qty, setQty] = useState(1);
+  const UNIT = 12832;
+  const ORIG = 42632;
+  const SHIP = 120;
+  const subtotal = UNIT * qty;
+  const original = ORIG * qty;
+  const discountProd = original - subtotal;
+  const totalCents = subtotal + SHIP;
+  const fmt = (c: number) => `R$ ${(c / 100).toFixed(2).replace(".", ",")}`;
+  const economia = discountProd + 3000 + 3000;
 
   useEffect(() => {
     if (!txId || paid) return;
@@ -64,7 +74,7 @@ function Resumo() {
     try {
       type SaleRes = { error?: string; qrCode?: string; qrCodeBase64?: string; transactionId?: string };
       const res: SaleRes = await Promise.race([
-        createSale({ data: { amount: 12952 } }) as Promise<SaleRes>,
+        createSale({ data: { amount: totalCents } }) as Promise<SaleRes>,
         new Promise<SaleRes>((_, rej) => setTimeout(() => rej(new Error("timeout")), 20000)),
       ]);
       if (res.error || !res.qrCode) {
@@ -156,13 +166,13 @@ function Resumo() {
             </div>
             <div className="flex items-center justify-between mt-1">
               <div>
-                <div className="text-primary font-bold">R$ 128,32</div>
-                <div className="text-xs text-muted-foreground line-through">R$ 426,32 <span className="text-primary no-underline">-70%</span></div>
+                <div className="text-primary font-bold">{fmt(subtotal)}</div>
+                <div className="text-xs text-muted-foreground line-through">{fmt(original)} <span className="text-primary no-underline">-70%</span></div>
               </div>
-              <div className="flex items-center border border-border rounded-md">
-                <button className="w-8 h-8">−</button>
-                <span className="w-8 text-center">1</span>
-                <button className="w-8 h-8">+</button>
+              <div className="flex items-center border border-border rounded-md select-none">
+                <button onClick={() => setQty(q => Math.max(1, q - 1))} className="w-8 h-8 disabled:opacity-40" disabled={qty <= 1}>−</button>
+                <span className="w-8 text-center">{qty}</span>
+                <button onClick={() => setQty(q => Math.min(99, q + 1))} className="w-8 h-8">+</button>
               </div>
             </div>
           </div>
@@ -194,13 +204,13 @@ function Resumo() {
       <div className="bg-background mt-2 px-4 py-4 space-y-3">
         <h3 className="font-bold text-[17px]">Resumo do pedido</h3>
         <div className="flex justify-between font-semibold">
-          <span>Subtotal do produto</span><span>R$ 128,32</span>
+          <span>Subtotal do produto</span><span>{fmt(subtotal)}</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-foreground/80 ml-3">Preço original</span><span>R$ 426,32</span>
+          <span className="text-foreground/80 ml-3">Preço original</span><span>{fmt(original)}</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-foreground/80 ml-3">Desconto no produto</span><span className="text-primary">- R$ 268,00</span>
+          <span className="text-foreground/80 ml-3">Desconto no produto</span><span className="text-primary">- {fmt(discountProd)}</span>
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-foreground/80 ml-3">Cupons do TikTok Shop</span><span className="text-primary">- R$ 30,00</span>
@@ -215,7 +225,7 @@ function Resumo() {
           <span className="text-foreground/80 ml-3">Desconto de envio</span><span className="text-primary">- R$ 30,00</span>
         </div>
         <div className="bg-[color:var(--coupon-bg)] -mx-4 px-4 py-2 flex items-center gap-2 text-primary text-sm">
-          <Smile className="size-4" /> Você está economizando R$ 298,00 nesse pedido.
+          <Smile className="size-4" /> Você está economizando {fmt(economia)} nesse pedido.
         </div>
       </div>
 
@@ -235,8 +245,8 @@ function Resumo() {
 
       <div className="fixed bottom-0 inset-x-0 bg-background border-t border-border px-4 pt-3 pb-6">
         <div className="flex items-baseline justify-between mb-2">
-          <span className="font-bold text-[17px]">Total (1 item)</span>
-          <span className="text-primary font-bold text-[20px]">R$ 129,52</span>
+          <span className="font-bold text-[17px]">Total ({qty} {qty === 1 ? "item" : "itens"})</span>
+          <span className="text-primary font-bold text-[20px]">{fmt(totalCents)}</span>
         </div>
         <button onClick={handlePay} className="w-full h-12 rounded-full bg-primary text-primary-foreground font-semibold">
           Fazer pedido
@@ -292,7 +302,7 @@ function Resumo() {
                 <div className="flex flex-col items-center">
                   <div className="text-center mb-3">
                     <div className="text-xs text-muted-foreground">Total a pagar</div>
-                    <div className="text-primary font-bold text-[22px]">R$ 129,52</div>
+                    <div className="text-primary font-bold text-[22px]">{fmt(totalCents)}</div>
                   </div>
                   <img src={qrImg} alt="QR Code Pix" className="w-56 h-56 rounded-lg border border-border" />
                   <p className="text-xs text-muted-foreground mt-3 text-center">Escaneie o QR Code com o app do seu banco</p>
