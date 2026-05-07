@@ -245,8 +245,8 @@ function Resumo() {
 
       <div className="fixed bottom-0 inset-x-0 bg-background border-t border-border px-4 pt-3 pb-6">
         <div className="flex items-baseline justify-between mb-2">
-          <span className="font-bold text-[17px]">Total (1 item)</span>
-          <span className="text-primary font-bold text-[20px]">R$ 129,52</span>
+          <span className="font-bold text-[17px]">Total ({qty} {qty === 1 ? "item" : "itens"})</span>
+          <span className="text-primary font-bold text-[20px]">{fmt(totalCents)}</span>
         </div>
         <button onClick={handlePay} className="w-full h-12 rounded-full bg-primary text-primary-foreground font-semibold">
           Fazer pedido
