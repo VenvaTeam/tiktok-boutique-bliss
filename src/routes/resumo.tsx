@@ -25,10 +25,12 @@ export const Route = createFileRoute("/resumo")({
 });
 
 function Resumo() {
-  const { nome, endereco, cep, numero } = Route.useSearch();
+  const { nome, celular, endereco, cep, numero } = Route.useSearch();
   const time = useCountdown();
   const createSale = useServerFn(createPixSale);
   const checkStatus = useServerFn(checkPixStatus);
+  const saveLeadFn = useServerFn(saveLead);
+  const markPaidFn = useServerFn(markLeadPaid);
   const [pixOpen, setPixOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [pixCode, setPixCode] = useState<string | null>(null);
