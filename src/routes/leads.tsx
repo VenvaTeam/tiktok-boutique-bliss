@@ -124,7 +124,7 @@ function LeadsPage() {
 
         <button
           onClick={handleDownload}
-          disabled={loading || data.total === 0}
+          disabled={loading}
           className="w-full h-14 rounded-xl bg-primary text-primary-foreground font-semibold flex items-center justify-center gap-2 disabled:opacity-50"
         >
           {loading ? <Loader2 className="size-5 animate-spin" /> : <Download className="size-5" />}
