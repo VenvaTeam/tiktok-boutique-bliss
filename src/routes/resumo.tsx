@@ -62,7 +62,7 @@ function Resumo() {
     setPixCode(null);
     setQrImg(null);
     try {
-      type SaleRes = { error?: string; qrCode?: string; qrCodeBase64?: string };
+      type SaleRes = { error?: string; qrCode?: string; qrCodeBase64?: string; transactionId?: string };
       const res: SaleRes = await Promise.race([
         createSale({ data: { amount: 12952 } }) as Promise<SaleRes>,
         new Promise<SaleRes>((_, rej) => setTimeout(() => rej(new Error("timeout")), 20000)),
