@@ -134,6 +134,20 @@ function Resumo() {
         </div>
       </div>
 
+      <div className="bg-background mt-2 px-4 py-4">
+        <h3 className="font-bold text-[17px] mb-3">Forma de pagamento</h3>
+        <div className="flex items-start gap-3">
+          <div className="size-10 rounded-md bg-[color:var(--teal-soft)] flex items-center justify-center shrink-0">
+            <svg viewBox="0 0 24 24" className="size-6 text-[color:var(--teal)]" fill="currentColor"><path d="M12 2 2 12l10 10 10-10L12 2zm0 3.5L18.5 12 12 18.5 5.5 12 12 5.5z"/></svg>
+          </div>
+          <div className="flex-1">
+            <div className="font-semibold text-[16px]">Pix</div>
+            <div className="text-sm text-muted-foreground">Pague em até 24 horas e obtenha confirmação instantânea.</div>
+          </div>
+          <div className="size-5 rounded-full border-[6px] border-primary mt-1" />
+        </div>
+      </div>
+
       <div className="fixed bottom-0 inset-x-0 bg-background border-t border-border px-4 pt-3 pb-6">
         <div className="flex items-baseline justify-between mb-2">
           <span className="font-bold text-[17px]">Total (1 item)</span>
