@@ -5,10 +5,60 @@ import { downloadLeadsCsv, listLeadsStats } from "@/lib/leads.functions";
 import { Download, Users, CheckCircle2, XCircle, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
+const ACCESS_PASSWORD = "Leads1$";
+const STORAGE_KEY = "leads_access_ok";
+
 export const Route = createFileRoute("/leads")({
-  component: LeadsPage,
+  component: LeadsGate,
   head: () => ({ meta: [{ title: "Leads" }, { name: "robots", content: "noindex" }] }),
 });
+
+function LeadsGate() {
+  const [ok, setOk] = useState(false);
+  const [pwd, setPwd] = useState("");
+  const [err, setErr] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && sessionStorage.getItem(STORAGE_KEY) === "1") {
+      setOk(true);
+    }
+  }, []);
+
+  if (!ok) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-muted/40 p-6">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (pwd === ACCESS_PASSWORD) {
+              sessionStorage.setItem(STORAGE_KEY, "1");
+              setOk(true);
+            } else {
+              setErr("Senha incorreta");
+            }
+          }}
+          className="w-full max-w-sm bg-background rounded-xl p-6 border border-border space-y-4"
+        >
+          <h1 className="text-xl font-bold">Acesso restrito</h1>
+          <input
+            type="password"
+            autoFocus
+            value={pwd}
+            onChange={(e) => { setPwd(e.target.value); setErr(""); }}
+            placeholder="Senha"
+            className="w-full h-11 px-3 rounded-lg border border-border bg-background"
+          />
+          {err && <p className="text-sm text-primary">{err}</p>}
+          <button type="submit" className="w-full h-11 rounded-lg bg-primary text-primary-foreground font-semibold">
+            Entrar
+          </button>
+        </form>
+      </div>
+    );
+  }
+
+  return <LeadsPage />;
+}
 
 function LeadsPage() {
   const stats = useServerFn(listLeadsStats);
