@@ -334,6 +334,32 @@ function StoreProfile() {
   );
 }
 
+function Description() {
+  return (
+    <div className="bg-background mt-2 px-4 py-4 pb-24 space-y-4">
+      <h2 className="font-semibold text-[17px]">Sobre este produto</h2>
+      <div>
+        <h3 className="font-medium text-[15px] mb-2">DESCRIÇÃO RESUMIDA</h3>
+        <p className="text-[15px] leading-relaxed">
+          Capacidade de 21L; Função Tira Odor: elimina odores internos deixados pelas refeições; Função Descongelar: com apenas 1 toque descongela diversos tipos de alimentos; Função Manter Aquecido: mantém a sua refeição aquecida até o momento de consumi-la; Menu Dia a Dia e Menu Kids: receitas pré-programadas que facilitam o preparo dos alimentos; 10 níveis de potência, Função Relógio, Tecla Iniciar + 30seg e Prato Giratório.
+        </p>
+      </div>
+      <div className="text-[15px] leading-relaxed">
+        <div className="font-medium">Características:</div>
+        <div>- Marca: Mondial</div>
+        <div>- Modelo: MO 01 21 B</div>
+      </div>
+      <div className="text-[15px] leading-relaxed">
+        <div className="font-medium">Especificações:</div>
+        {["Voltagem 127v","Cor Preto","Potência 1200W","Consumo 1,2Kw/h","Prato giratório","Tecla iniciar fácil","Tira odor","Descongela","Manter aquecido","Menu dia a dia/menu kids","Função relógio","Níveis de potência 10 níveis","Capacidade 21L","Peso 7Kg"].map(t => <div key={t}>- {t}</div>)}
+      </div>
+      <div className="rounded-lg overflow-hidden bg-muted mt-3">
+        <img src={microondas} alt="Micro-ondas Mondial" loading="lazy" className="w-full object-cover" />
+      </div>
+    </div>
+  );
+}
+
 
 function CouponBar() {
   return (
