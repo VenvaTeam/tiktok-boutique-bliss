@@ -351,6 +351,7 @@ function Resumo() {
                     </div>
                   </div>
                   <p className="text-[11px] text-muted-foreground mt-3 text-center">QR válido por 24h • Confirmação automática após o pagamento.</p>
+                  <p className="text-[10px] text-muted-foreground/80 mt-1 text-center italic">Em caso de aviso, pague em outro banco.</p>
                 </div>
               )}
             </div>
