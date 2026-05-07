@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ChevronLeft, Search, Share2, ShoppingCart, MoreHorizontal,
   Bookmark, Star, Truck, Grid2x2, Wallet, Shield, Check,
@@ -402,9 +402,9 @@ function BottomBar() {
         <button className="flex-1 h-12 rounded-full bg-muted font-semibold text-[15px] leading-tight">
           Adicionar<br/>ao carrinho
         </button>
-        <button className="flex-1 h-12 rounded-full bg-primary text-primary-foreground font-semibold text-[15px] leading-tight">
-          Comprar<br/>com cupom
-        </button>
+        <Link to="/checkout" className="flex-1 h-12 rounded-full bg-primary text-primary-foreground font-semibold text-[15px] leading-tight flex flex-col items-center justify-center">
+          <span>Comprar</span><span>com cupom</span>
+        </Link>
       </div>
       <div className="h-1.5 mx-auto w-32 bg-foreground rounded-full mb-1.5" />
     </div>
