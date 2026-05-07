@@ -212,7 +212,7 @@ function Overview() {
     <div className="bg-background mt-2">
       <Tabs />
       <Row icon={<Truck className="size-5" />}>
-        <div className="font-medium">Receba até 11–14 de mai</div>
+        <div className="font-medium">Receba em até 48 horas</div>
         <div className="text-sm text-muted-foreground mt-0.5">
           Taxa de envio: <span className="line-through">R$ 31,20</span> R$ 1,20
         </div>

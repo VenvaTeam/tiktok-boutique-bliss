@@ -84,7 +84,7 @@ function Resumo() {
 
       <div className="bg-[color:var(--teal-soft)] px-4 py-3 flex items-start justify-between">
         <div>
-          <div className="font-medium">Receba até 11–14 de mai</div>
+          <div className="font-medium">Receba em até 48 horas</div>
           <div className="text-sm text-muted-foreground">Envio padrão</div>
         </div>
         <div className="text-right">
