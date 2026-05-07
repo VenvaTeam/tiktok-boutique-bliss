@@ -325,6 +325,7 @@ function Index() {
       <Overview />
       <Offers />
       <CreatorVideos />
+      <Reviews />
       <BottomBar />
     </div>
   );
