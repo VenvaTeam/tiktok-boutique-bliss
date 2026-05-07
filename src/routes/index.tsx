@@ -81,7 +81,7 @@ function PriceBanner() {
         <div className="flex items-end gap-1.5 min-w-0">
           <span className="bg-white text-[color:var(--coupon-fg)] text-[10px] font-bold px-1 py-0.5 rounded shrink-0">-39%</span>
           <span className="text-xs">R$</span>
-          <span className="text-[26px] font-bold leading-none">426,32</span>
+          <span className="text-[26px] font-bold leading-none">128,32</span>
           <Ticket className="size-3.5 mb-1 shrink-0" />
         </div>
         <div className="text-right shrink-0">

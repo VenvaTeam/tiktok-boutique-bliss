@@ -69,8 +69,8 @@ function Resumo() {
             </div>
             <div className="flex items-center justify-between mt-1">
               <div>
-                <div className="text-primary font-bold">R$ 426,32</div>
-                <div className="text-xs text-muted-foreground line-through">R$ 668,22 <span className="text-primary no-underline">-36%</span></div>
+                <div className="text-primary font-bold">R$ 128,32</div>
+                <div className="text-xs text-muted-foreground line-through">R$ 426,32 <span className="text-primary no-underline">-70%</span></div>
               </div>
               <div className="flex items-center border border-border rounded-md">
                 <button className="w-8 h-8">−</button>
@@ -107,20 +107,20 @@ function Resumo() {
       <div className="bg-background mt-2 px-4 py-4 space-y-3">
         <h3 className="font-bold text-[17px]">Resumo do pedido</h3>
         <div className="flex justify-between font-semibold">
-          <span>Subtotal do produto</span><span>R$ 426,32</span>
+          <span>Subtotal do produto</span><span>R$ 128,32</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-foreground/80 ml-3">Preço original</span><span>R$ 668,22</span>
+          <span className="text-foreground/80 ml-3">Preço original</span><span>R$ 426,32</span>
         </div>
         <div className="bg-[color:var(--coupon-bg)] -mx-4 px-4 py-2 flex items-center gap-2 text-primary text-sm">
-          <Smile className="size-4" /> Você está economizando R$ 271,90 nesse pedido.
+          <Smile className="size-4" /> Você está economizando R$ 298,00 nesse pedido.
         </div>
       </div>
 
       <div className="fixed bottom-0 inset-x-0 bg-background border-t border-border px-4 pt-3 pb-6">
         <div className="flex items-baseline justify-between mb-2">
           <span className="font-bold text-[17px]">Total (1 item)</span>
-          <span className="text-primary font-bold text-[20px]">R$ 427,52</span>
+          <span className="text-primary font-bold text-[20px]">R$ 129,52</span>
         </div>
         <button className="w-full h-12 rounded-full bg-primary text-primary-foreground font-semibold">
           Fazer pedido
