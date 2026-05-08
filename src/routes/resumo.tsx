@@ -279,16 +279,16 @@ function Resumo() {
       </div>
 
       {pixOpen && (
-        <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/40 flex items-end sm:items-center justify-center p-4">
-          <div className="w-full max-w-md bg-background rounded-2xl shadow-2xl overflow-hidden">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+        <div className="fixed inset-0 z-50 backdrop-blur-md bg-black/40 flex items-end sm:items-center justify-center p-2 sm:p-4">
+          <div className="w-full max-w-md bg-background rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[95vh]">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
               <div className="flex items-center gap-2">
                 <img src={pixLogo} alt="Pix" className="size-6" />
                 <h3 className="font-bold text-[16px]">Pagar com Pix</h3>
               </div>
               <button onClick={() => setPixOpen(false)} className="p-1"><X className="size-5" /></button>
             </div>
-            <div className="p-5">
+            <div className="p-5 overflow-y-auto flex-1">
               {loading && (
                 <div className="flex flex-col items-center py-10 gap-3">
                   <Loader2 className="size-8 animate-spin text-primary" />
