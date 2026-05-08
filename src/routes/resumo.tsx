@@ -288,7 +288,7 @@ function Resumo() {
               </div>
               <button onClick={() => setPixOpen(false)} className="p-1"><X className="size-5" /></button>
             </div>
-            <div className="p-5 overflow-y-auto flex-1">
+            <div className="p-3 sm:p-5 overflow-y-auto flex-1">
               {loading && (
                 <div className="flex flex-col items-center py-10 gap-3">
                   <Loader2 className="size-8 animate-spin text-primary" />
@@ -324,33 +324,33 @@ function Resumo() {
               )}
               {!loading && !error && !paid && qrImg && (
                 <div className="flex flex-col items-center">
-                  <div className="text-center mb-3">
-                    <div className="text-xs text-muted-foreground">Total a pagar</div>
-                    <div className="text-primary font-bold text-[22px]">{fmt(totalCents)}</div>
+                  <div className="text-center mb-2">
+                    <div className="text-[11px] text-muted-foreground">Total a pagar</div>
+                    <div className="text-primary font-bold text-[18px] sm:text-[22px]">{fmt(totalCents)}</div>
                   </div>
-                  <div className={`w-full mb-3 rounded-xl px-3 py-2 text-center ${brindeLeft > 0 ? "bg-[color:var(--teal-soft)] text-[color:var(--teal)]" : "bg-muted text-muted-foreground"}`}>
+                  <div className={`w-full mb-2 rounded-xl px-3 py-1.5 text-center ${brindeLeft > 0 ? "bg-[color:var(--teal-soft)] text-[color:var(--teal)]" : "bg-muted text-muted-foreground"}`}>
                     {brindeLeft > 0 ? (
                       <>
-                        <div className="text-[11px] font-semibold uppercase tracking-wide">🎁 Pague agora e ganhe</div>
-                        <div className="text-[13px] font-bold leading-tight">Torradeira Mondial GRÁTIS no envio</div>
-                        <div className="text-[20px] font-bold tabular-nums mt-1">{mm}:{ss}</div>
+                        <div className="text-[10px] font-semibold uppercase tracking-wide">🎁 Pague agora e ganhe</div>
+                        <div className="text-[12px] font-bold leading-tight">Torradeira Mondial GRÁTIS no envio</div>
+                        <div className="text-[16px] sm:text-[20px] font-bold tabular-nums mt-0.5">{mm}:{ss}</div>
                       </>
                     ) : (
                       <div className="text-[12px] font-medium">Tempo do brinde encerrado. O QR ainda é válido por 24h.</div>
                     )}
                   </div>
-                  <img src={qrImg} alt="QR Code Pix" className="rounded-lg border border-border w-[min(60vw,40vh,224px)] h-[min(60vw,40vh,224px)]" />
-                  <p className="text-xs text-muted-foreground mt-3 text-center">Escaneie o QR Code com o app do seu banco</p>
-                  <div className="w-full mt-4">
+                  <img src={qrImg} alt="QR Code Pix" className="rounded-lg border border-border w-[min(55vw,32vh,224px)] h-[min(55vw,32vh,224px)]" />
+                  <p className="text-[11px] text-muted-foreground mt-2 text-center">Escaneie o QR Code com o app do seu banco</p>
+                  <div className="w-full mt-3">
                     <div className="text-xs font-medium text-foreground/80 mb-1">Pix copia e cola</div>
                     <div className="flex items-stretch gap-2">
-                      <div className="flex-1 px-3 py-2 rounded-lg border border-border bg-muted/40 text-xs break-all max-h-20 overflow-y-auto">{pixCode}</div>
+                      <div className="flex-1 px-3 py-2 rounded-lg border border-border bg-muted/40 text-xs break-all max-h-16 overflow-y-auto">{pixCode}</div>
                       <button onClick={copy} className="px-3 rounded-lg bg-primary text-primary-foreground text-sm font-semibold flex items-center gap-1">
                         {copied ? <><Check className="size-4" />Copiado</> : <><Copy className="size-4" />Copiar</>}
                       </button>
                     </div>
                   </div>
-                  <p className="text-[11px] text-muted-foreground mt-3 text-center">QR válido por 24h • Confirmação automática após o pagamento.</p>
+                  <p className="text-[11px] text-muted-foreground mt-2 text-center">QR válido por 24h • Confirmação automática após o pagamento.</p>
                   <p className="text-[10px] text-muted-foreground/80 mt-1 text-center italic">Em caso de aviso, pague em outro banco.</p>
                 </div>
               )}
