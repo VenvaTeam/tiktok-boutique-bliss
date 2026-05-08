@@ -339,7 +339,7 @@ function Resumo() {
                       <div className="text-[12px] font-medium">Tempo do brinde encerrado. O QR ainda é válido por 24h.</div>
                     )}
                   </div>
-                  <img src={qrImg} alt="QR Code Pix" className="w-56 h-56 rounded-lg border border-border" />
+                  <img src={qrImg} alt="QR Code Pix" className="w-48 h-48 sm:w-56 sm:h-56 rounded-lg border border-border" />
                   <p className="text-xs text-muted-foreground mt-3 text-center">Escaneie o QR Code com o app do seu banco</p>
                   <div className="w-full mt-4">
                     <div className="text-xs font-medium text-foreground/80 mb-1">Pix copia e cola</div>
