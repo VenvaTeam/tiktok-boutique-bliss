@@ -123,6 +123,15 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+
+  useEffect(() => {
+    const unsub = router.subscribe("onResolved", () => {
+      const ttq = (window as { ttq?: { page?: () => void } }).ttq;
+      if (ttq && typeof ttq.page === "function") ttq.page();
+    });
+    return () => unsub();
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>
